@@ -3,9 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+    crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="landing.css" />
     <title>Sprout</title>
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #9FC2CC">
+        <!--I think that we should link the "Sprout" logo
+        to either the landing page or nursery page-->
+        <a class="navbar-brand" href="#">Sprout</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+         data-target="#navbarText" aria-controls="navbarText"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Nursery</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">My Garden</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto h-100">
+        <div class="card img-fluid mx-auto d-flex align-items-center" style="width:400px">
+            <img class="card-img" src="sprout.png" alt="Plant Sprouting" style="width:100%">
+            <div class="card-img-overlay justify-content-center d-flex">
+                <h4 class="card-title justify-text-center">Welcome to Sprout!</h4>
+            </div>
+            <div class="card-body d-flex justify-content-center" style="width:100%">
+                <div class="justify-content-center d-flex" style="width:100%">
+                    <div class="col-6 button1">
+                        <button class="btn btn-primary btn-block">Use my location</button>
+                    </div>
+                    <div class="col-6 button2">
+                        <button class="btn btn-secondary btn-block">Enter zip</button>
+                    </div>
+                </div>
+            </div>      
+        </div>
+    </div>
 </body>
 </html>
