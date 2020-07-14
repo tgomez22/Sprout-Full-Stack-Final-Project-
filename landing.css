@@ -1,0 +1,57 @@
+body{
+   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  color: #000;
+  min-height:100vh;
+  background-color: #566E3D;
+  /*tan: B9A44C*/
+}
+
+a{
+    font-family:"verdana";
+}
+
+h4{
+    font-family:"verdana";
+}
+/*
+    ideas for colors to use:
+    F25F5C (Maybe)
+    B9A44C
+    566E3D
+    9FC2CC
+    A5668B (Maybe)
+
+    D62828
+    F77F00
+*/
+
+
+.card{
+    min-height:100%;
+    background-color: #566E3D;
+    border:none;
+    /**/
+}
+
+.button1{
+    padding-left:10px;
+    padding-right:2px;
+}
+
+.button2{
+    padding-right:10px;
+    padding-left:2px;
+}
+
+.btn-primary{
+    padding:10px;
+    background-color: #B9A44C;
+    color:black;
+}
+
+.btn-secondary{
+    padding:10px;
+    background-color:#B9A44C;
+    color:black;
+}
