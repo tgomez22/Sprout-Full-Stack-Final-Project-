@@ -14,7 +14,7 @@
     <title>Sprout</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #9FC2CC">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #9FC2CC">
         <!--I think that we should link the "Sprout" logo
         to either the landing page or nursery page-->
         <a class="navbar-brand" href="#">Sprout</a>
@@ -23,34 +23,43 @@
          aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
         </button>
-
+        
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Nursery</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">My Garden</a>
                 </li>
+                <li>
+                    <form class="form-inline my-2 my-lg-0 ml-auto">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Find a plant"
+                        aria-label="Find a plant">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container mx-auto h-100">
-        <div class="card img-fluid mx-auto d-flex align-items-center" style="width:400px">
+    <div class="container mx-auto h-80 align-self-center d-flex">
+        <div class="card img-fluid mx-auto d-flex align-items-center h-60" style="width:400px">
             <img class="card-img" src="sprout.png" alt="Plant Sprouting" style="width:100%">
             <div class="card-img-overlay justify-content-center d-flex">
                 <h4 class="card-title justify-text-center">Welcome to Sprout!</h4>
             </div>
-            <div class="card-body d-flex justify-content-center" style="width:100%">
-                <div class="justify-content-center d-flex" style="width:100%">
-                    <div class="col-6 button1">
+            <div class="card-body justify-content-center" style="width:100%">
+                <div class="row">
+                    <div class="col-12 button1">
                         <button class="btn btn-primary btn-block">Use my location</button>
                     </div>
-                    <div class="col-6 button2">
-                        <button class="btn btn-secondary btn-block">Enter zip</button>
-                    </div>
                 </div>
+                <div class="form-group-row d-flex">
+                        <input class="col-8 form-control mr-sm-2" type="search" placeholder="Enter a zipcode"
+                        aria-label="Enter a zipcode">
+                        <button class="col-4  btn btn-outline-success my-2 my-sm-0" type="submit" id="zip">Search</button>        
+                </div>            
             </div>      
         </div>
     </div>
