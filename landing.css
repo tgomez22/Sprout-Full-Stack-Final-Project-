@@ -4,6 +4,7 @@ body{
   color: #000;
   min-height:100vh;
   background-color: #566E3D;
+  padding-top:70px;
   /*tan: B9A44C*/
 }
 
@@ -35,18 +36,20 @@ h4{
 }
 
 .button1{
-    padding-left:10px;
-    padding-right:2px;
-}
-
-.button2{
-    padding-right:10px;
-    padding-left:2px;
+    margin-bottom:10px;
+    padding-right: 7px;
 }
 
 .btn-primary{
     padding:10px;
     background-color: #B9A44C;
+    color:black;
+    border-color:#B9A44C;
+}
+
+.btn-primary:hover{
+    background-color:#9FC2CC;
+    border-color:#9FC2CC;
     color:black;
 }
 
@@ -54,4 +57,27 @@ h4{
     padding:10px;
     background-color:#B9A44C;
     color:black;
+    border-color:#B9A44C;
+}
+
+.btn-secondary:hover{
+    background-color:#9FC2CC;
+    border-color:#9FC2CC;
+    color:black;
+}
+
+.btn-outline-success{
+    border-color:black;
+    color:black;
+}
+
+button#zip:hover{
+    border-color: #9FC2CC;
+    background-color: #9FC2CC;
+    color:black;
+}
+
+.form-group-row{
+    padding-left:0px;
+    padding-right:0px;
 }
