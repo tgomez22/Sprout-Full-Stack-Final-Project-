@@ -8,8 +8,29 @@ body{
   /*tan: B9A44C*/
 }
 
+.container{
+    height:100vh;
+}
+
 a{
     font-family:"verdana";
+}
+
+.navbar-brand:hover{
+    text-underline-offset: 10px;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+    padding-bottom:5px;
+
+}
+
+.nav-link:hover{
+    text-underline-offset: 10px;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+    padding-bottom:5px;
 }
 
 h4{
@@ -80,4 +101,15 @@ button#zip:hover{
 .form-group-row{
     padding-left:0px;
     padding-right:0px;
+}
+
+.col-8{
+    flex: 0 1 auto;
+    margin-right:0px;
+}
+
+@media(max-width:500px){
+    .col-4{
+        margin-left:0px;
+    }
 }
