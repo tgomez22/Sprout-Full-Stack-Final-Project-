@@ -1,0 +1,11 @@
+.col-2{
+    border-radius: 3px;
+    border: 1px solid black;
+    background-color: #9FC2CC;
+    justify-content: center;
+}
+
+.card{
+    background-color: #9FC2CC;
+    justify-content: center;
+}
