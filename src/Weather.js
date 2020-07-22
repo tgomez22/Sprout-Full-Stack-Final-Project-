@@ -2,13 +2,14 @@ import React from 'react';
 import {Component} from 'react';
 import { Card } from 'react-bootstrap';
 import "./Weather.css";
-const url = 
+const url = ;
 
 
 export default class Weather extends Component{
     constructor(props){
         super(props);
         this.state = {
+            dates: [],
             highs: [],
             lows: [],
             weatherDescription: [],
@@ -34,58 +35,69 @@ export default class Weather extends Component{
 
         else{
             return(
-    <div className="row justify-content-center fixed-bottom">
-        <div className="col-2 d-flex">
+    <div className="row justify-content-center fixed-bottom" id="box">
+        <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img src={this.state.icon[0]}/>
-                <Card.Title>Date Placeholder</Card.Title>
+                <Card.Img id="weatherIcon" src={this.state.icon[0]}/>
+                <Card.Title>{this.state.dates[0]}</Card.Title>
                     <Card.Text>
-                        {this.state.weatherDescription[0]}
-                        It is currently: {this.state.highs[0]} degrees out.
+                            {this.state.weatherDescription[0]}
+                        <br />
+                        High: {this.state.highs[0]}&#8457;
+                        <br />
+                        Low: {this.state.lows[0]}&#8457;
                     </Card.Text>
             </Card>
         </div> 
-        <div className="col-2 d-flex" >
+        <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img src={this.state.icon[1]}/>
-                <Card.Title>Date Placeholder</Card.Title>
+                <Card.Img id="weatherIcon" src={this.state.icon[1]}/>
+                <Card.Title>{this.state.dates[1]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[1]}
-                        High: {this.state.highs[1]} degrees Fahrenheit.
-                        Low: {this.state.lows[0]} degrees Fahrenheit.
+                        <br />
+                        High: {this.state.highs[1]}&#8457;
+                        <br />
+                        Low: {this.state.lows[1]}&#8457;
                     </Card.Text>
             </Card>
         </div> 
-        <div className="col-2 d-flex" >
+        <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img src={this.state.icon[2]}/>
-                <Card.Title>Date Placeholder</Card.Title>
+                <Card.Img id="weatherIcon" src={this.state.icon[2]}/>
+                <Card.Title>{this.state.dates[2]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[2]}
-                        High: {this.state.highs[2]} degrees Fahrenheit.
-                        Low: {this.state.lows[1]} degrees Fahrenheit.
+                        <br />
+                        High: {this.state.highs[2]}&#8457;
+                        <br />
+                        Low: {this.state.lows[2]}&#8457;
                     </Card.Text>
             </Card>
         </div> 
-        <div className="col-2 d-flex" >
+        <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img src={this.state.icon[3]}/>
-                <Card.Title>Date Placeholder</Card.Title>
+                <Card.Img id="weatherIcon" src={this.state.icon[3]}/>
+                <Card.Title >{this.state.dates[3]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[3]}
-                        High: {this.state.highs[3]} degrees Fahrenheit.
-                        Low: {this.state.lows[2]} degrees Fahrenheit.
+                        <br />
+                        High: {this.state.highs[3]}&#8457;
+                        <br />
+                        Low: {this.state.lows[3]}&#8457;
                     </Card.Text>
             </Card>
         </div> 
-         <div className="col-2 d-flex">
+         <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img src={this.state.icon[4]}/>
-                <Card.Title>Date Placeholder</Card.Title>
+                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                    <Card.Title>{this.state.dates[4]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[4]}
-                        High: {this.state.highs[4]} degrees Fahrenheit.
-                        Low: {this.state.lows[3]} degrees Fahrenheit.
+                        <br />
+                        High: {this.state.highs[4]}&#8457;
+                        <br />
+                        Low: {this.state.lows[4]}&#8457;
                     </Card.Text>
             </Card>
         </div> 
@@ -95,6 +107,20 @@ export default class Weather extends Component{
             );
         }
     }
+
+    convertTime(toUse){
+    
+    let tempArray = [];
+    let int;
+    
+    for(let i = 0; i < 5; ++i){
+        int = (toUse[i] * 1000);
+        let dateObj = new Date(int);
+        tempArray.push(dateObj.toLocaleDateString("en-us"));
+    }
+    return tempArray;
+
+}
 
     componentDidMount(){
        fetch(url)
@@ -110,33 +136,44 @@ export default class Weather extends Component{
             (jsonResponse) => 
         {
             let icons = [];
-
-            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.current.weather[0].icon + "@2x.png");
-            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[0].weather[0].icon + "@2x.png"); 
+            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[0].weather[0].icon + "@2x.png");
             icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[1].weather[0].icon + "@2x.png"); 
-            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[2].weather[0].icon + "@2x.png");
+            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[2].weather[0].icon + "@2x.png"); 
             icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[3].weather[0].icon + "@2x.png");
+            icons.push("http://openweathermap.org/img/wn/" + jsonResponse.daily[4].weather[0].icon + "@2x.png");
 
             let descriptions = [];
-            descriptions.push(jsonResponse.current.weather[0].description);
             descriptions.push(jsonResponse.daily[0].weather[0].description);
             descriptions.push(jsonResponse.daily[1].weather[0].description);
             descriptions.push(jsonResponse.daily[2].weather[0].description);
             descriptions.push(jsonResponse.daily[3].weather[0].description);
+            descriptions.push(jsonResponse.daily[4].weather[0].description);
 
             let highTemps = [];
-            highTemps.push(jsonResponse.current.temp);
             highTemps.push(jsonResponse.daily[0].temp.max);
             highTemps.push(jsonResponse.daily[1].temp.max);
             highTemps.push(jsonResponse.daily[2].temp.max);
             highTemps.push(jsonResponse.daily[3].temp.max);
+            highTemps.push(jsonResponse.daily[4].temp.max);
 
             let lowTemps = [];
             lowTemps.push(jsonResponse.daily[0].temp.min);
             lowTemps.push(jsonResponse.daily[1].temp.min);
             lowTemps.push(jsonResponse.daily[2].temp.min);
             lowTemps.push(jsonResponse.daily[3].temp.min);
+            lowTemps.push(jsonResponse.daily[4].temp.min);
+
+            let times = [];
+            times.push(jsonResponse.daily[0].dt);
+            times.push(jsonResponse.daily[1].dt);
+            times.push(jsonResponse.daily[2].dt);
+            times.push(jsonResponse.daily[3].dt);
+            times.push(jsonResponse.daily[4].dt);
+
+            times = this.convertTime(times);
+
                 this.setState({
+                    dates: times,
                     highs: highTemps,
                     lows: lowTemps,
                     weatherDescription: descriptions,
