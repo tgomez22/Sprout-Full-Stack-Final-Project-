@@ -1,26 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import Panel from "./Panel";
+import PanelDriver from "./PanelDriver";
 
-function Row() {
-  return (
-    <div className="row">
-      <Panel name="Haley" />
-      {/* <Panel name="Tristan" /> */}
-      {/* <Panel name="Fred" /> */}
-      {/* <Panel name="Daphne" /> */}
-    </div>
-  );
-}
+const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
+
+const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes only
+const url = `https://trefle.io/api/v1/species/search?q=basil&limit=8&token=${apiKey}`;
 
 function App() {
   return (
     <div className="App">
       <div className="container-fluid">
-        <Row />
-        {/* <Row /> */}
-        {/* <Row /> */}
+        <div className="row">
+          <PanelDriver url={proxyUrl + url} />
+        </div>
       </div>
     </div>
   );
