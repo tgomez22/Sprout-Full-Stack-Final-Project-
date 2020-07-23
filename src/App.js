@@ -1,46 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import PanelDriver from "./PanelDriver";
 
-function Panel(props) {
-  return (
-    <div className="col-3">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and stuff.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          I'm a placeholder, {props.name}!;
-        </a>
-      </header>
-    </div>
-  );
-}
+const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 
-function Row() {
-  return (
-    <div className="row">
-      <Panel name="Haley" />
-      <Panel name="Tristan" />
-      <Panel name="Fred" />
-      <Panel name="Daphne" />
-    </div>
-  );
-}
+const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes only
+const url = `https://trefle.io/api/v1/species/search?q=basil&limit=8&token=${apiKey}`;
 
 function App() {
   return (
     <div className="App">
       <div className="container-fluid">
-        <Row />
-        <Row />
-        <Row />
+        <div className="row">
+          <PanelDriver url={proxyUrl + url} />
+        </div>
       </div>
     </div>
   );
