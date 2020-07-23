@@ -2,7 +2,8 @@ import React from 'react';
 import {Component} from 'react';
 import { Card } from 'react-bootstrap';
 import "./Weather.css";
-const url = ;
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const url = "http://api.openweathermap.org/data/2.5/onecall?lat=45.521744&lon=-122.689947&units=imperial&exclude=minutely,hourly&appid=" + API_KEY;
 
 
 export default class Weather extends Component{
