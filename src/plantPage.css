@@ -1,0 +1,12 @@
+plantPage > row {
+  height: 30%;
+}
+
+plantPage > img {
+  height: 100%;
+  width: auto;
+}
+
+.PlantPage {
+  border: 10px solid blue;
+}
