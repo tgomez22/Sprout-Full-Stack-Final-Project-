@@ -1,0 +1,119 @@
+body{
+   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  color: #000;
+  min-height:100vh;
+  background-color: #566E3D;
+  padding-top:70px;
+  /*tan: B9A44C*/
+}
+
+.container{
+    height:100vh;
+}
+
+a{
+    font-family:"verdana";
+}
+
+.navbar{
+    background-color: #9FC2CC;
+}
+
+.navbar-brand:hover{
+    text-underline-offset: 10px;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+    padding-bottom:5px;
+
+}
+
+.nav-link:hover{
+    text-underline-offset: 10px;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+    padding-bottom:5px;
+}
+
+h4{
+    font-family:"verdana";
+}
+/*
+    ideas for colors to use:
+    F25F5C (Maybe)
+    B9A44C
+    566E3D
+    9FC2CC
+    A5668B (Maybe)
+
+    D62828
+    F77F00
+*/
+
+
+.card{
+    min-height:100%;
+    background-color: #566E3D;
+    border:none;
+    /**/
+}
+
+.button1{
+    margin-bottom:10px;
+    padding-right: 7px;
+}
+
+.btn-primary{
+    padding:10px;
+    background-color: #B9A44C;
+    color:black;
+    border-color:#B9A44C;
+}
+
+.btn-primary:hover{
+    background-color:#9FC2CC;
+    border-color:#9FC2CC;
+    color:black;
+}
+
+.btn-secondary{
+    padding:10px;
+    background-color:#B9A44C;
+    color:black;
+    border-color:#B9A44C;
+}
+
+.btn-secondary:hover{
+    background-color:#9FC2CC;
+    border-color:#9FC2CC;
+    color:black;
+}
+
+.btn-outline-success{
+    border-color:black;
+    color:black;
+}
+
+button#zip:hover{
+    border-color: #9FC2CC;
+    background-color: #9FC2CC;
+    color:black;
+}
+
+.form-group-row{
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.col-8{
+    flex: 0 1 auto;
+    margin-right:0px;
+}
+
+@media(max-width:500px){
+    .col-4{
+        margin-left:0px;
+    }
+}
