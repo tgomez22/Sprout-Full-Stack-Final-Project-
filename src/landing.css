@@ -8,8 +8,16 @@ body{
   /*tan: B9A44C*/
 }
 
+
+/*
+.card-img-overlay{
+    background-color: #566E3D;
+}
+*/
+
 .container{
     height:100vh;
+    background-color: #566E3D;
 }
 
 a{
@@ -28,7 +36,14 @@ a{
     padding-bottom:5px;
 
 }
+a{
+    color:black;
+}
 
+a:hover{
+    text-decoration:none;
+    color:black;
+}
 .nav-link:hover{
     text-underline-offset: 10px;
     text-decoration: underline;
@@ -53,12 +68,13 @@ h4{
 */
 
 
-.card{
+form.card{
     min-height:100%;
-    background-color: #566E3D;
     border:none;
+    background-color: #566E3D;
     /**/
 }
+
 
 .button1{
     margin-bottom:10px;
@@ -96,6 +112,7 @@ h4{
     color:black;
 }
 
+
 button#zip:hover{
     border-color: #9FC2CC;
     background-color: #9FC2CC;
@@ -103,14 +120,17 @@ button#zip:hover{
 }
 
 .form-group-row{
-    padding-left:0px;
-    padding-right:0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .col-8{
     flex: 0 1 auto;
     margin-right:0px;
 }
+
+
+
 
 @media(max-width:500px){
     .col-4{
