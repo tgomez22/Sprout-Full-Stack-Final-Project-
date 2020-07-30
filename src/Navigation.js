@@ -6,19 +6,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import LandingPage from "./landing";
+import Weather from './Weather';
+import AboutUs from "./About";
 
-
-
-function Navigation(){
+export function Navigation(){
     return (
+    <Router>
 <Navbar expand="lg" fixed="top">
-    <Navbar.Brand href="#">Sprout</Navbar.Brand>
+    <Navbar.Brand><Link to='/garden'>Sprout</Link></Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar" />
     <Navbar.Collapse id = "basic-navbar">
         <Nav className="ml-auto">
-            <Nav.Link href="#">Nursery</Nav.Link>
-            <Nav.Link href="#">My Garden</Nav.Link>
-            <Nav.Link href="#">About Us</Nav.Link>
+            <Nav.Link>Nursery</Nav.Link>
+            <Nav.Link><Link to="/garden">My Garden</Link></Nav.Link>
+            <Nav.Link><Link to="/about">About Us</Link></Nav.Link>
         </Nav>
         <Form inline>
             <FormControl type="text" placeholder="Find a Plant" 
@@ -27,8 +30,11 @@ function Navigation(){
         </Form>
     </Navbar.Collapse>
 </Navbar>
+<Route path='/' exact component={LandingPage} />
+<Route path='/garden' component={Weather} />
+<Route path='/about' component={AboutUs} />
+</Router>
     );
 }
 
 
-export default Navigation;

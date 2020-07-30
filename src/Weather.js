@@ -2,8 +2,9 @@ import React from 'react';
 import {Component} from 'react';
 import { Card } from 'react-bootstrap';
 import "./Weather.css";
+import {useMyZip} from './Location.js';
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-const url = "http://api.openweathermap.org/data/2.5/onecall?lat=45.521744&lon=-122.689947&units=imperial&exclude=minutely,hourly&appid=" + API_KEY;
+
 
 
 export default class Weather extends Component{
@@ -14,17 +15,16 @@ export default class Weather extends Component{
             highs: [],
             lows: [],
             weatherDescription: [],
-            key: url,
+            key: API_KEY,
             icon: [],
             error: null,
             isLoaded: false,
-            latitute: 45.521744, //placeholder for testing
-            longitude: -122.689947, //placeholder for testing
-        };
+        }
     }
 
     render(){
-        if(this.error === true){
+       
+        if(this.error === null || this.error === true){
             return(
             <div className = "row">
                 <div className ="col-4">
@@ -124,7 +124,77 @@ export default class Weather extends Component{
 }
 
     componentDidMount(){
-       fetch(url)
+        if(localStorage.getItem('latitude') === undefined && localStorage.getItem('longitude') === undefined){
+            return(
+                <div className="row justify-content-center fixed-bottom" id="box">
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Title>Date</Card.Title>
+                    <Card.Text>
+                        Description:
+                        <br />
+                        High: &#8457;
+                        <br />
+                        Low: &#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Title>Date</Card.Title>
+                    <Card.Text>
+                        Description:
+                        <br />
+                        High: &#8457;
+                        <br />
+                        Low: &#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                
+                <Card.Title>Date</Card.Title>
+                    <Card.Text>
+                        Description:
+                        <br />
+                        High: &#8457;
+                        <br />
+                        Low: &#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Title>Date</Card.Title>
+                    <Card.Text>
+                        Description
+                        <br />
+                        High: &#8457;
+                        <br />
+                        Low: &#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+         <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                    <Card.Title>Date</Card.Title>
+                    <Card.Text>
+                        Description
+                        <br />
+                        High: &#8457;
+                        <br />
+                        Low: &#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+    </div>
+    
+            );   
+        }
+        
+       fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + localStorage.getItem('latitude') + "&lon=" + localStorage.getItem('longitude') + "&units=imperial&exclude=minutely,hourly&appid=" + API_KEY)
         .then(response => {
             if(response.status === 200){
                 return response.json();
@@ -189,7 +259,9 @@ export default class Weather extends Component{
                 isLoaded:false,
         });
         }
+        
         )
+    } 
     }
-}
+
 
