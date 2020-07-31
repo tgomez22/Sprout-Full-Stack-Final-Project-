@@ -54,12 +54,14 @@ function PlantPage({ url }) {
             <li id="growth">
               Growth
               <ul>
-                {Object.keys(values.growth).map((key) => {
+                {mapList(values.growth)}
+                {/* {Object.keys(values.growth).map((key) => {
+                  debugger;
                   return (
                     <li>
                       {key}:
                       {typeof values.growth[key] === "object"
-                        ? values.growth[key].map((innerKey) => {
+                      }  ? Object.keys(values.growth[key]).map((innerKey) => {
                             return (
                               <ul>
                                 <li>
@@ -68,10 +70,13 @@ function PlantPage({ url }) {
                               </ul>
                             );
                           })
-                        : values.growth[key]}
+                        : Boolean(values.growth[key])
+                        ? values.growth[key]
+                        : "null"
+                      {typeof values.growth[key]};
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </li>
             {/* <li id="distribution">Distribution</li>
@@ -89,4 +94,24 @@ function PlantPage({ url }) {
   );
 }
 
+function mapList(field, key) {
+  return (
+    <ul>
+      {key ? key : null}
+      {Object.keys(field).map((key) => {
+        return typeof field[key] === "object" && field[key] !== null
+          ? mapList(field[key], key)
+          : isNullField(key, field[key]);
+      })}
+    </ul>
+  );
+}
+
+function isNullField(key, nonObj) {
+  return (
+    <li>
+      {key}: {nonObj ? nonObj : "null"}
+    </li>
+  );
+}
 export default PlantPage;
