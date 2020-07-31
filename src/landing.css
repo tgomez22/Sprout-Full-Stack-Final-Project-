@@ -8,51 +8,18 @@ body{
   /*tan: B9A44C*/
 }
 
-
-/*
-.card-img-overlay{
+.card{
     background-color: #566E3D;
+    border:none;
 }
-*/
 
 .container{
     height:100vh;
     background-color: #566E3D;
 }
 
-a{
-    font-family:"verdana";
-}
-
-.navbar{
-    background-color: #9FC2CC;
-}
-
-.navbar-brand:hover{
-    text-underline-offset: 10px;
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-decoration-thickness: 3px;
-    padding-bottom:5px;
-
-}
-a{
-    color:black;
-}
-
-a:hover{
-    text-decoration:none;
-    color:black;
-}
-.nav-link:hover{
-    text-underline-offset: 10px;
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-decoration-thickness: 3px;
-    padding-bottom:5px;
-}
-
-h4{
+h1{
+    font-size: 1rem;
     font-family:"verdana";
 }
 /*
@@ -75,17 +42,12 @@ form.card{
     /**/
 }
 
-
-.button1{
-    margin-bottom:10px;
-    padding-right: 7px;
-}
-
 .btn-primary{
     padding:10px;
     background-color: #B9A44C;
     color:black;
     border-color:#B9A44C;
+    margin-bottom:5px;
 }
 
 .btn-primary:hover{
@@ -112,6 +74,10 @@ form.card{
     color:black;
 }
 
+button#zip{
+    flex: 1 1 auto;
+    width:30%;
+}
 
 button#zip:hover{
     border-color: #9FC2CC;

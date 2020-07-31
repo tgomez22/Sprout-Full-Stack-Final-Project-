@@ -10,7 +10,7 @@ import Weather from './Weather';
 import './landing.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import sprout from "./sprout.png";
-//import sprout from 'src/sprout.png';
+import {Container} from 'react-bootstrap'
 import {FormControl, Button} from 'react-bootstrap';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
@@ -55,6 +55,9 @@ export default class LandingPage extends React.Component{
 
     handleUserZip = async () =>{
         let value = document.getElementById("input").value;
+        if(value.length !== 5){
+            return(console.log("Please enter a valid zip code."));   
+        }
         if (value.length === 5){
             let test = value.toString();
             let result = test.match(/(\d{5})/);
@@ -82,28 +85,32 @@ export default class LandingPage extends React.Component{
     
 
     render(){
+        if(this.state.isLoaded === true){
+            return(<Redirect to='/garden' />);
+        } else {
         return(
-    <div className="container align-self-center d-flex">
-        <div className="card img-fluid mx-auto d-flex align-items-center h-60">
-             <div className="card-img-overlay justify-content-center d-flex">
-                <h4 className="card-title justify-text-center">Welcome to Sprout!</h4>
-            </div>
-            <Image src={sprout} alt="Plant Sprouting" rounded id="pic"/>
-            <div className="justify-content-center">
+        <Container className="my-auto col-12">
+            <Container className="align-self-center d-flex justify-content-center col-4 d-flex flex-column">
                 <Row>
-                    <Col>
-                        <button className="btn btn-primary btn-block" onClick={this.handleUseMyLocation}>Use my location</button>
-                    </Col>
+                <h1 className="justify-text-center">Welcome to Sprout!</h1>
                 </Row>
-                <Form.Group>
-                        <FormControl className="col-8 mr-sm-2" type="text" placeholder="Enter a zipcode"
-                        aria-label="Enter a zipcode" name="userZip" id="input"/>
-                        <button className="col-4 btn-outline-success" type="submit" id="zip" onClick={this.handleUserZip}>Search</button>        
-                </Form.Group>            
-            </div>      
-        </div>
-    </div>
-        );
+                <Image src={sprout} alt="Plant Sprouting" rounded id="pic" className="mx-auto"/>
+                        <Row className="justify-content-center">
+                            <Col>
+                                <Button className="btn btn-primary btn-block" onClick={this.handleUseMyLocation}>Use my location</Button>
+                            </Col>
+                        </Row>
+                <Form.Row>
+                        <Col className='col-12'>
+                            <Form.Control className="col-8 mr-sm-2 d-inline-block" type="text" placeholder="Enter a zipcode"
+                                aria-label="Enter a zipcode" name="userZip" id="input"/>
+                                <Button className="btn-outline-success d-inline-block" type="submit" id="zip" onClick={this.handleUserZip}>Search</Button>
+                        </Col>       
+                </Form.Row>            
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </Container>
+            </Container>
+        );}
     }
 }
 

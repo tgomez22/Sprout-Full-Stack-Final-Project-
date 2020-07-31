@@ -1,7 +1,7 @@
 import React from "react"
 import FormControl from 'react-bootstrap/FormControl';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./landing.css";
+import "./Navigation.css";
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +10,12 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import LandingPage from "./landing";
 import Weather from './Weather';
 import AboutUs from "./About";
+import GoogleLogin from 'react-google-login';
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+const responseGoogle = (response) => {
+    console.log(response);
+}
 
 export function Navigation(){
     return (
@@ -19,6 +25,13 @@ export function Navigation(){
     <Navbar.Toggle aria-controls="basic-navbar" />
     <Navbar.Collapse id = "basic-navbar">
         <Nav className="ml-auto">
+      <GoogleLogin 
+    clientId={CLIENT_ID}
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+  /> 
             <Nav.Link>Nursery</Nav.Link>
             <Nav.Link><Link to="/garden">My Garden</Link></Nav.Link>
             <Nav.Link><Link to="/about">About Us</Link></Nav.Link>
@@ -36,5 +49,6 @@ export function Navigation(){
 </Router>
     );
 }
+
 
 
