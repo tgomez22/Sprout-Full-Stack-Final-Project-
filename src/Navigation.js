@@ -12,11 +12,14 @@ import Weather from './Weather';
 import AboutUs from "./About";
 import GoogleLogin from 'react-google-login';
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
+//testing method. delete upon deployment.
 const responseGoogle = (response) => {
     console.log(response);
 }
 
+
+//This method is the navbar for the website. It is the only way to navigate between pages
+//in Sprout.
 export function Navigation(){
     return (
     <Router>
