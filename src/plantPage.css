@@ -1,12 +1,8 @@
-plantPage > row {
-  height: 30%;
-}
-
 plantPage > img {
-  height: 100%;
+  height: 33%;
   width: auto;
 }
 
-.PlantPage {
-  border: 10px solid blue;
+plantPage[className="row header"] {
+  height: 100px;
 }

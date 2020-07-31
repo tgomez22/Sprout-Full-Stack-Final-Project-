@@ -18,7 +18,7 @@ function PlantPage({ url }) {
 
   return values ? (
     <div className="plantPage">
-      <div className="row" height="33vh" border="5px solid black">
+      <div className="row mh-25">
         <div className="col-6">
           <ul>
             <li>
@@ -48,45 +48,49 @@ function PlantPage({ url }) {
           <img src={values.image_url} height="33%"></img>
         </div>
       </div>
-      <div className="row" height="66vh">
-        <div className="col-12">
+      <div className="row mh-75">
+        <div className="col-4"></div>
+        <div className="col-4">
           <ul>
             <li id="growth">
               Growth
+              <ul>{mapList(values.growth)}</ul>
+            </li>
+            <br></br>
+            <br></br>
+            <li id="distribution">
+              Distribution
               <ul>
-                {mapList(values.growth)}
-                {/* {Object.keys(values.growth).map((key) => {
-                  debugger;
-                  return (
-                    <li>
-                      {key}:
-                      {typeof values.growth[key] === "object"
-                      }  ? Object.keys(values.growth[key]).map((innerKey) => {
-                            return (
-                              <ul>
-                                <li>
-                                  {innerKey}: {values.growth[key][innerKey]}
-                                </li>
-                              </ul>
-                            );
-                          })
-                        : Boolean(values.growth[key])
-                        ? values.growth[key]
-                        : "null"
-                      {typeof values.growth[key]};
-                    </li>
-                  );
-                })} */}
+                {values.distribution.native.map((key) => {
+                  return <li>{key}</li>;
+                })}
               </ul>
             </li>
-            {/* <li id="distribution">Distribution</li>
-            <li id="commonName">Common names</li>
-            <li id="specifications">Specifications</li>
-            <li id="flower">Flower Info</li>
-            <li id="foliage">Foliage</li>
-            <li id="fruitOrSeed ">Fruit/Seed Info</li> */}
+            <li id="commonName">
+              Common names
+              <ul>
+                <li>{values.common_name}</li>
+              </ul>
+            </li>
+            <li id="specifications">
+              Specifications
+              <ul>{mapList(values.specifications)}</ul>
+            </li>
+            <li id="flower">
+              Flower Info
+              <ul>{mapList(values.flower)}</ul>
+            </li>
+            <li id="foliage">
+              Foliage
+              <ul>{mapList(values.foliage)}</ul>
+            </li>
+            <li id="fruitOrSeed">
+              Fruit/Seed Info
+              <ul>{mapList(values.fruit_or_seed)}</ul>
+            </li>
           </ul>
         </div>
+        <div className="col-4"></div>
       </div>
     </div>
   ) : (
