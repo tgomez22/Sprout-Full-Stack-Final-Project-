@@ -2,11 +2,15 @@ import React from 'react';
 import {Component} from 'react';
 import { Card } from 'react-bootstrap';
 import "./Weather.css";
-import {useMyZip} from './Location.js';
+import {Redirect} from 'react-router-dom';
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 
-
+/*This component renders a 5 day weather forecast which is stuck to the bottom of the user's
+screen. It uses the local storage location data to make an api call to get the weather forecast
+for the user's location. If the data is successfully fetched and loaded, then the weather bar is loaded. 
+If the weather data cannot be loaded, then the bar is rendered mostly empty, with some place holding test.
+If the component is loaded with its own data, it skips calling the api and renders using its stored data.*/
 export default class Weather extends Component{
     constructor(props){
         super(props);
@@ -23,18 +27,9 @@ export default class Weather extends Component{
     }
 
     render(){
-       
-        if(this.error === null || this.error === true){
-            return(
-            <div className = "row">
-                <div className ="col-4">
-                    Nothing loaded yet!.
-                </div>
-            </div>
-            );
-        }
 
-        else{
+        //If this component has weather data, then it will display it.
+        if(this.state.isLoaded === true){
             return(
     <div className="row justify-content-center fixed-bottom" id="box">
         <div className="d-flex" id="panel">
@@ -103,12 +98,90 @@ export default class Weather extends Component{
             </Card>
         </div> 
     </div>
-    
-
             );
+
+            //If the component is NOT loaded but location data exists in local storage,
+            //then the component makes an api call to get weather data, then displays
+            //a properly loaded weather bar.
+        } else if (this.state.isLoaded === false && localStorage.getItem("latitude") !== undefined 
+        && localStorage.getItem("longitude") !== undefined){
+            this.getWeatherForecast();
+            return(
+    <div className="row justify-content-center fixed-bottom" id="box">
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[0]}/>
+                <Card.Title>{this.state.dates[0]}</Card.Title>
+                    <Card.Text>
+                            {this.state.weatherDescription[0]}
+                        <br />
+                        High: {this.state.highs[0]}&#8457;
+                        <br />
+                        Low: {this.state.lows[0]}&#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[1]}/>
+                <Card.Title>{this.state.dates[1]}</Card.Title>
+                    <Card.Text>
+                        {this.state.weatherDescription[1]}
+                        <br />
+                        High: {this.state.highs[1]}&#8457;
+                        <br />
+                        Low: {this.state.lows[1]}&#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[2]}/>
+                <Card.Title>{this.state.dates[2]}</Card.Title>
+                    <Card.Text>
+                        {this.state.weatherDescription[2]}
+                        <br />
+                        High: {this.state.highs[2]}&#8457;
+                        <br />
+                        Low: {this.state.lows[2]}&#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+        <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[3]}/>
+                <Card.Title >{this.state.dates[3]}</Card.Title>
+                    <Card.Text>
+                        {this.state.weatherDescription[3]}
+                        <br />
+                        High: {this.state.highs[3]}&#8457;
+                        <br />
+                        Low: {this.state.lows[3]}&#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+         <div className="d-flex" id="panel">
+            <Card style={{width:'80%'}}>
+                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                    <Card.Title>{this.state.dates[4]}</Card.Title>
+                    <Card.Text>
+                        {this.state.weatherDescription[4]}
+                        <br />
+                        High: {this.state.highs[4]}&#8457;
+                        <br />
+                        Low: {this.state.lows[4]}&#8457;
+                    </Card.Text>
+            </Card>
+        </div> 
+    </div>
+            );
+        } else {
+            return(<Redirect to='/' />);
         }
     }
 
+    //This method takes time data and converts it to a human
+    //readable form. Data passed in should be UNIX time.
     convertTime(toUse){
     
     let tempArray = [];
@@ -192,9 +265,16 @@ export default class Weather extends Component{
     </div>
     
             );   
+            
         }
         
-       fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + localStorage.getItem('latitude') + "&lon=" + localStorage.getItem('longitude') + "&units=imperial&exclude=minutely,hourly&appid=" + API_KEY)
+       
+    }
+
+
+    /*This method fetches weather data from the openweathermap api if location data exists in local storage. */
+    getWeatherForecast = () => {
+fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + localStorage.getItem('latitude') + "&lon=" + localStorage.getItem('longitude') + "&units=imperial&exclude=minutely,hourly&appid=" + API_KEY)
         .then(response => {
             if(response.status === 200){
                 return response.json();
@@ -262,6 +342,5 @@ export default class Weather extends Component{
         
         )
     } 
-    }
-
+}
 
