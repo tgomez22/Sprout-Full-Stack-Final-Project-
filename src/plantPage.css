@@ -1,0 +1,10 @@
+plantPage > img {
+  height: 100%;
+  width: auto;
+}
+
+.container {
+  height: 33vh;
+  display: flex;
+  flex-direction: row;
+}

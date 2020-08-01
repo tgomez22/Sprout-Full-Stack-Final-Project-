@@ -11,6 +11,7 @@ img {
 
 row {
   align-content: center;
+  border: 2px solid blue;
 }
 
 .App-header {
