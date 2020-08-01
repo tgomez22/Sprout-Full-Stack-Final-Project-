@@ -1,5 +1,9 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+=======
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+#unused files
+src/landing.html
+src/question_mark.jpg
 # dependencies
 /node_modules
 /.pnp
@@ -21,3 +25,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+>>>>>>> 9b4c0040a60a697b41d41aa9392756769f204688
