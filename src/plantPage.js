@@ -18,37 +18,41 @@ function PlantPage({ url }) {
 
   return values ? (
     <div className="plantPage">
-      <div className="row mh-25">
-        <div className="col-6">
-          <ul>
-            <li>
-              <a href="#growth">Growth</a>
-            </li>
-            <li>
-              <a href="#distribution">Distribution</a>
-            </li>
-            <li>
-              <a href="#commonName">Common Names</a>
-            </li>
-            <li>
-              <a href="#specifications">Specifications</a>
-            </li>
-            <li>
-              <a href="#flower">Flower Info</a>
-            </li>
-            <li>
-              <a href="#foliage">Foliage</a>
-            </li>
-            <li>
-              <a href="#fruitOrSeed">Fruit or Seed Info</a>
-            </li>
-          </ul>
-        </div>
-        <div className="col-6">
-          <img src={values.image_url} height="33%"></img>
+      <div className="row">
+        <div className="col-12">
+          <div className="container">
+            <div className="col-6">
+              <ul>
+                <li>
+                  <a href="#growth">Growth</a>
+                </li>
+                <li>
+                  <a href="#distribution">Distribution</a>
+                </li>
+                <li>
+                  <a href="#commonName">Common Names</a>
+                </li>
+                <li>
+                  <a href="#specifications">Specifications</a>
+                </li>
+                <li>
+                  <a href="#flower">Flower Info</a>
+                </li>
+                <li>
+                  <a href="#foliage">Foliage</a>
+                </li>
+                <li>
+                  <a href="#fruitOrSeed">Fruit or Seed Info</a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-6">
+              <img src={values.image_url}></img>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="row mh-75">
+      <div className="row">
         <div className="col-4"></div>
         <div className="col-4">
           <ul>

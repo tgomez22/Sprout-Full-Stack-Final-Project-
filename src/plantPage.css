@@ -1,8 +1,10 @@
 plantPage > img {
-  height: 33%;
+  height: 100%;
   width: auto;
 }
 
-plantPage[className="row header"] {
-  height: 100px;
+.container {
+  height: 33vh;
+  display: flex;
+  flex-direction: row;
 }
