@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormControl from "react-bootstrap/FormControl";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navigation.css";
@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import LandingPage from "./landing";
 import Weather from "./Weather";
 import AboutUs from "./About";
+import App from "./App";
 import GoogleLogin from "react-google-login";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 //testing method. delete upon deployment.
@@ -20,6 +21,8 @@ const responseGoogle = (response) => {
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
 export function Navigation() {
+  // useEffect(init, []);
+
   return (
     <Router>
       <Navbar expand="lg" fixed="top">
@@ -32,7 +35,7 @@ export function Navigation() {
             <GoogleLogin
               clientId={CLIENT_ID}
               buttonText="Login"
-              onSuccess={responseGoogle}
+              onSuccess={init}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
             />
@@ -55,8 +58,41 @@ export function Navigation() {
         </Navbar.Collapse>
       </Navbar>
       <Route path="/" exact component={LandingPage} />
-      <Route path="/garden" component={Weather} />
+      {/* <Route path="/garden" component={Weather} /> */}
+      <Route path="/garden" component={App} />
       <Route path="/about" component={AboutUs} />
     </Router>
   );
 }
+
+function init() {
+  window.gapi.load("auth2", function () {
+    window.gapi.auth2.init({ client_id: CLIENT_ID });
+  });
+  const id_token = getIdToken();
+  fetch("http://localhost:3000/verify", {
+    headers: {
+      "Content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ id_token }),
+  })
+    .then((res) => {
+      debugger;
+      return res.json();
+    })
+    .then((res) => {
+      debugger;
+      console.log("Signed in as:" + res);
+    })
+    .catch((error) => {
+      console.log("Request failed", error);
+    });
+}
+
+function getIdToken() {
+  const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+  return googleUser.getAuthResponse().id_token;
+}
+
+export default getIdToken;

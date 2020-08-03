@@ -5,6 +5,7 @@ function PanelDriver({ url }) {
   const [values, setValues] = useState(null);
 
   useEffect(() => {
+    console.log("Paneldriver url recieved: " + url);
     fetch(url, { headers: { Origin: "localhost" } })
       .then((response) => response.json())
       .then(({ data }) => {
