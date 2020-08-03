@@ -3,6 +3,7 @@ import "./App.css";
 import PanelDriver from "./PanelDriver";
 import PlantPage from "./plantPage";
 import getIdToken from "./Navigation";
+import GoogleLogin from "react-google-login";
 
 const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 
@@ -17,10 +18,15 @@ function App() {
   useEffect(() => {
     //if logged in
     // const id_token = getIdToken();
-    getFavs().then((res) => {
-      setFinalUrl(res);
-    });
+    // debugger;
+    // console.log("Is signed in: " + window.gapi.auth2.isSignedIn.get());
+    // const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+    // googleUser.isSignedIn() ?
+    // getFavsLogged().then((res) => {
+    //   setFinalUrl(res);
+    // }) :
     //if logged out
+    setFinalUrl(getFavsLocal());
   }, []);
 
   console.log("Final url: " + finalURL);
@@ -36,7 +42,7 @@ function App() {
   );
 }
 
-function getFavs() {
+function getFavsLogged() {
   //if logged in
   // const id_token = getIdToken();
   return fetch("http://localhost:3000/getLoggedFavs", {
@@ -61,7 +67,16 @@ function getFavs() {
     .catch((error) => {
       console.log("Request failed", error);
     });
-  //if logged out
+}
+
+function getFavsLocal() {
+  const favs = [];
+  Object.keys(localStorage).forEach(function (key) {
+    if (key.includes("Sprout_favorited")) {
+      favs.push(value);
+    }
+  });
+  return proxyUrl + url + favs.toString();
 }
 
 export default App;

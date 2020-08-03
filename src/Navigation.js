@@ -36,6 +36,7 @@ export function Navigation() {
               clientId={CLIENT_ID}
               buttonText="Login"
               onSuccess={init}
+              isSignedIn={true}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
             />
