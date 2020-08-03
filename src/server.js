@@ -30,7 +30,7 @@ app.get("/", function (res, req) {
 app.post("/verify", function (req, res) {
   return verify(req.body.id_token)
     .then((userid) => {
-      console.log(userid);
+      // console.log(userid);
       res.write(userid);
       res.end();
     })
@@ -38,8 +38,8 @@ app.post("/verify", function (req, res) {
 });
 
 app.post("/getLoggedFavs", function (req, res) {
-  console.log("Hello!! Res: " + res);
-  console.log("Goodbye! Favs: " + favs);
+  // console.log("Hello!! Res: " + res);
+  // console.log("Goodbye! Favs: " + favs);
   res.write(JSON.stringify(favs));
   res.end();
 });
@@ -50,7 +50,7 @@ app.listen(PORT, function (error) {
 });
 
 async function verify(token) {
-  console.log(token);
+  // console.log(token);
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: CLIENT_ID,

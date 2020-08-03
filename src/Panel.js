@@ -3,7 +3,8 @@ import logo from "./sprout.png";
 import "./App.css";
 
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
-  const currFav = localStorage.getItem(`Sprout_${id}_favorited`) === "true";
+  const currFav =
+    localStorage.getItem(`Sprout_favorited_${scientificName}`) === "true";
   const [isFavorited, setIsFavorited] = useState(currFav);
   const icon = previewImage ? previewImage : logo;
 
@@ -17,7 +18,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
               onClick={() => {
                 setIsFavorited(!isFavorited);
                 localStorage.setItem(
-                  `Sprout_${id}_favorited`,
+                  `Sprout_favorited_${scientificName}`,
                   String(!isFavorited)
                 );
               }}

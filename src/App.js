@@ -10,23 +10,20 @@ const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes only
 // const url = `https://trefle.io/api/v1/species/search?q=basil&limit=8&token=${apiKey}`;
 // const url = `https://trefle.io/api/v1/plants/111119?q=basil&limit=8&token=${apiKey}`;
-const url = `https://trefle.io/api/v1/species?token=${apiKey}&filter[scientific_name]=`;
+const url = `https://trefle.io/api/v1/species?token=${apiKey}&limit=8&filter[scientific_name]=`;
 
 function App() {
   const [finalURL, setFinalUrl] = useState([]);
 
   useEffect(() => {
-    //if logged in
     // const id_token = getIdToken();
-    // debugger;
-    // console.log("Is signed in: " + window.gapi.auth2.isSignedIn.get());
-    // const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-    // googleUser.isSignedIn() ?
-    // getFavsLogged().then((res) => {
-    //   setFinalUrl(res);
-    // }) :
-    //if logged out
-    setFinalUrl(getFavsLocal());
+    const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+    console.log(googleUser.isSignedIn());
+    googleUser.isSignedIn()
+      ? getFavsLogged().then((res) => {
+          setFinalUrl(res);
+        })
+      : setFinalUrl(getFavsLocal());
   }, []);
 
   console.log("Final url: " + finalURL);
@@ -43,7 +40,6 @@ function App() {
 }
 
 function getFavsLogged() {
-  //if logged in
   // const id_token = getIdToken();
   return fetch("http://localhost:3000/getLoggedFavs", {
     headers: {
@@ -58,7 +54,7 @@ function getFavsLogged() {
     })
     .then((res) => {
       debugger;
-      console.log("Response: " + res);
+      // console.log("Response: " + res);
       // const ids = res.toString();
       // console.log("Ids: " + ids);
       console.log("URL: " + proxyUrl + url + res);
@@ -72,8 +68,11 @@ function getFavsLogged() {
 function getFavsLocal() {
   const favs = [];
   Object.keys(localStorage).forEach(function (key) {
-    if (key.includes("Sprout_favorited")) {
-      favs.push(value);
+    if (
+      key.includes("Sprout_favorited") &&
+      localStorage.getItem(key) === "true"
+    ) {
+      favs.push(key.replace("Sprout_favorited_", ""));
     }
   });
   return proxyUrl + url + favs.toString();
