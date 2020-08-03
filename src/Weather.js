@@ -18,7 +18,6 @@ export default class Weather extends Component{
             dates: [],
             highs: [],
             lows: [],
-            callCounter: 0,
             weatherDescription: [],
             key: API_KEY,
             icon: [],
@@ -35,7 +34,7 @@ export default class Weather extends Component{
     <div className="row justify-content-center fixed-bottom" id="box">
         <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[0]}/>
+                <Card.Img id="weatherIcon" src={this.state.icon[0]} alt="Icon representing current weather."/>
                 <Card.Title>{this.state.dates[0]}</Card.Title>
                     <Card.Text>
                             {this.state.weatherDescription[0]}
@@ -48,7 +47,7 @@ export default class Weather extends Component{
         </div> 
         <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[1]}/>
+                <Card.Img id="weatherIcon" src={this.state.icon[1]} alt="Icon representing current weather."/>
                 <Card.Title>{this.state.dates[1]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[1]}
@@ -61,7 +60,7 @@ export default class Weather extends Component{
         </div> 
         <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[2]}/>
+                <Card.Img id="weatherIcon" src={this.state.icon[2]} alt="Icon representing current weather."/>
                 <Card.Title>{this.state.dates[2]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[2]}
@@ -74,7 +73,7 @@ export default class Weather extends Component{
         </div> 
         <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[3]}/>
+                <Card.Img id="weatherIcon" src={this.state.icon[3]} alt="Icon representing current weather."/>
                 <Card.Title >{this.state.dates[3]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[3]}
@@ -87,7 +86,7 @@ export default class Weather extends Component{
         </div> 
          <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                <Card.Img id="weatherIcon" src={this.state.icon[4]} alt="Icon representing current weather."/>
                     <Card.Title>{this.state.dates[4]}</Card.Title>
                     <Card.Text>
                         {this.state.weatherDescription[4]}
@@ -154,7 +153,6 @@ export default class Weather extends Component{
         </div> 
          <div className="d-flex" id="panel">
             <Card style={{width:'80%'}}>
-                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
                     <Card.Title>Date</Card.Title>
                     <Card.Text>
                         Description
@@ -193,7 +191,7 @@ export default class Weather extends Component{
                 <div className="row justify-content-center fixed-bottom" id="box">
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[0]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[0]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[0]}</Card.Title>
                                     <Card.Text>
                                             {this.state.weatherDescription[0]}
@@ -206,7 +204,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[1]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[1]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[1]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[1]}
@@ -219,7 +217,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[2]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[2]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[2]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[2]}
@@ -232,7 +230,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[3]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[3]} alt="Icon representing current weather."/>
                                 <Card.Title >{this.state.dates[3]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[3]}
@@ -245,7 +243,7 @@ export default class Weather extends Component{
                         </div> 
                          <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[4]} alt="Icon representing current weather."/>
                                     <Card.Title>{this.state.dates[4]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[4]}
@@ -264,7 +262,7 @@ export default class Weather extends Component{
                     <div className="row justify-content-center fixed-bottom" id="box">
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[0]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[0]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[0]}</Card.Title>
                                     <Card.Text>
                                             {this.state.weatherDescription[0]}
@@ -277,7 +275,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[1]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[1]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[1]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[1]}
@@ -290,7 +288,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[2]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[2]} alt="Icon representing current weather."/>
                                 <Card.Title>{this.state.dates[2]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[2]}
@@ -303,7 +301,7 @@ export default class Weather extends Component{
                         </div> 
                         <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[3]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[3]} alt="Icon representing current weather."/>
                                 <Card.Title >{this.state.dates[3]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[3]}
@@ -316,7 +314,7 @@ export default class Weather extends Component{
                         </div> 
                          <div className="d-flex" id="panel">
                             <Card style={{width:'80%'}}>
-                                <Card.Img id="weatherIcon" src={this.state.icon[4]}/>
+                                <Card.Img id="weatherIcon" src={this.state.icon[4]} alt="Icon representing current weather."/>
                                     <Card.Title>{this.state.dates[4]}</Card.Title>
                                     <Card.Text>
                                         {this.state.weatherDescription[4]}
@@ -409,4 +407,3 @@ fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + localStorage.getIt
         )
     } 
 }
-
