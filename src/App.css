@@ -1,7 +1,15 @@
 .App {
   box-sizing: border-box;
   text-align: center;
-  border: 2px solid rgb(209, 20, 20);
+}
+
+img.mx-auto {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.col-3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 img {
@@ -15,11 +23,17 @@ row {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #b9a44c;
   font-size: calc(0px + 2vmin);
-  color: white;
-  border: 1px solid rgb(22, 199, 60);
+  color: black;
+  border: 1px solid #b9a44c;
+  border-radius: 4px;
   height: 35vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .App-link {

@@ -1,31 +1,44 @@
-
-nav.navbar{
-    background-color: #9FC2CC;
+nav.navbar {
+  background-color: #9fc2cc;
 }
 
-a{
-    font-family:"verdana";
-    color:black;
+a {
+  font-family: "verdana";
+  color: black;
 }
 
-
-.navbar-brand:hover{
-    text-underline-offset: 10px;
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-decoration-thickness: 3px;
-    padding-bottom:5px;
-
+.navbar-brand:hover {
+  text-underline-offset: 10px;
+  text-decoration: underline;
+  text-decoration-color: black;
+  text-decoration-thickness: 3px;
+  padding-bottom: 5px;
 }
 
-a:hover{
-    text-decoration:none;
-    color:black;
+a:hover {
+  text-decoration: none;
+  color: black;
 }
-.nav-link:hover{
-    text-underline-offset: 10px;
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-decoration-thickness: 3px;
-    padding-bottom:5px;
+.nav-link:hover {
+  text-underline-offset: 10px;
+  text-decoration: underline;
+  text-decoration-color: black;
+  text-decoration-thickness: 3px;
+  padding-bottom: 5px;
+}
+
+label#label {
+  display: none;
+}
+
+@media (max-width: 999px) {
+  .nav-link:hover {
+    text-underline-offset: 2px;
+  }
+}
+
+@media (max-width: 992px) {
+  div > button {
+    width: 100px;
+  }
 }
