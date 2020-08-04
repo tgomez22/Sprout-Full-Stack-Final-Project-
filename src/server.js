@@ -41,35 +41,85 @@ app.post("/verify", function (req, res) {
     .catch(console.error);
 });
 
+app.post("/login", (req, res, next) => {
+  pool.query(
+    "SELECT * FROM users WHERE token_id = $1",
+    [req.params.token_id],
+    (err, res) => {
+      if (err) {
+        pool.query(
+          "INSERT INTO users VALUES ($1)",
+          [req.params.token_id],
+          (err, res) => {
+            if (err) {
+              return next(err);
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.post("/fav", (req, res, next) => {
+  pool.query(
+    "SELECT * FROM plants WHERE name = $1",
+    [req.params.scientificName],
+    (err, res) => {
+      if (err) {
+        pool.query(
+          "INSERT INTO plants VALUES ($1)",
+          [req.params.scientificName],
+          (err, res) => {
+            if (err) {
+              console.log(err.stack);
+            }
+          }
+        );
+      }
+      pool.query(
+        "INSERT INTO favList VALUES ((SELECT id FROM users WHERE users.token_id = $1), (SELECT id FROM plants WHERE plants.name = $2)",
+        [req.params.token_id, req.params.scientificName],
+        (err, res) => {
+          if (err) {
+            console.log(err.stack);
+          }
+        }
+      );
+    }
+  );
+});
+
+app.post("/unfav", (req, res, next) => {
+  pool.query(
+    "DELETE FROM favList f WHERE f.uid = (SELECT id FROM users WHERE user.token_id = $1) AND f.pid = (SELECT id FROM plants WHERE plant.name = $2)",
+    [req.params.token_id, req.params.scientificName],
+    (err, res) => {
+      if (err) {
+        console.log(err.stack);
+      }
+    }
+  );
+});
+
 app.post("/getLoggedFavs", function (req, res, next) {
   // console.log("Hello!! Res: " + res);
   // console.log("Goodbye! Favs: " + favs);
   const loggedFavs = [];
   pool.query(
-    "SELECT * FROM users WHERE id = $1",
+    "SELECT p.name FROM users u, plants p, favList f WHERE u.token_id = $1 AND u.id = f.uid AND f.pid = p.id",
     [req.params.token_id],
     (err, res) => {
       if (err) {
-        return next(err);
+        console.log(err.stack);
       }
     }
   );
+
+  console.log(result.rows);
 
   res.write(JSON.stringify(loggedFavs));
   res.end();
-});
-
-app.post("/:id", (req, res, next) => {
-  pool.query(
-    "SELECT * FROM users WHERE id = $1",
-    [req.params.id],
-    (err, res) => {
-      if (err) {
-        return next(err);
-      }
-      res.send(res.rows[0]);
-    }
-  );
 });
 
 app.listen(PORT, function (error) {
