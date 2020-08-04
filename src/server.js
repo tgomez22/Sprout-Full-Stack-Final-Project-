@@ -2,11 +2,15 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { OAuth2Client } = require("google-auth-library");
+const { Pool } = require("pg");
+
+var PORT = process.env.PORT || 3000;
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const SECRET_ID = process.env.REACT_APP_GOOGLE_SECRET_ID;
+
 const client = new OAuth2Client(CLIENT_ID);
 const app = express();
-var PORT = process.env.PORT || 3000;
+const pool = new Pool();
 
 const favs = [
   "Clinopodium vulgare",
@@ -37,11 +41,35 @@ app.post("/verify", function (req, res) {
     .catch(console.error);
 });
 
-app.post("/getLoggedFavs", function (req, res) {
+app.post("/getLoggedFavs", function (req, res, next) {
   // console.log("Hello!! Res: " + res);
   // console.log("Goodbye! Favs: " + favs);
-  res.write(JSON.stringify(favs));
+  const loggedFavs = [];
+  pool.query(
+    "SELECT * FROM users WHERE id = $1",
+    [req.params.token_id],
+    (err, res) => {
+      if (err) {
+        return next(err);
+      }
+    }
+  );
+
+  res.write(JSON.stringify(loggedFavs));
   res.end();
+});
+
+app.post("/:id", (req, res, next) => {
+  pool.query(
+    "SELECT * FROM users WHERE id = $1",
+    [req.params.id],
+    (err, res) => {
+      if (err) {
+        return next(err);
+      }
+      res.send(res.rows[0]);
+    }
+  );
 });
 
 app.listen(PORT, function (error) {
