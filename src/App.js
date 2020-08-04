@@ -46,7 +46,7 @@ function getFavsLogged() {
       "Content-type": "application/json",
     },
     method: "POST",
-    // body: JSON.stringify({ id_token }),
+    body: JSON.stringify({ id_token }),
   })
     .then((res) => {
       debugger;

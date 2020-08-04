@@ -89,11 +89,33 @@ function init() {
     .catch((error) => {
       console.log("Request failed", error);
     });
+  dbLogin(id_token);
 }
 
 function getIdToken() {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
   return googleUser.getAuthResponse().id_token;
+}
+
+function dbLogin(id_token) {
+  fetch("http://localhost:3000/login", {
+    headers: {
+      "Content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ id_token }),
+  })
+    // .then((res) => {
+    //   debugger;
+    //   return res.json();
+    // })
+    // .then((res) => {
+    //   debugger;
+    //   console.log("Signed in as:" + res);
+    // })
+    .catch((error) => {
+      console.log("Request failed", error);
+    });
 }
 
 export default getIdToken;
