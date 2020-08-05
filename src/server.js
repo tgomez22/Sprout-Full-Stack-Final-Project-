@@ -117,29 +117,27 @@ app.post("/fav", (req, res, next) => {
   );
 });
 
-app.post("/unfav", (req, res, next) => {
+app.post("/unfav", (req, res) => {
+  console.log("We're in unfav!");
   pool.query(
-    "DELETE FROM favList f WHERE f.uid = (SELECT id FROM users WHERE user.token_id = $1) AND f.pid = (SELECT id FROM plants WHERE plant.name = $2)",
-    [req.body.id_token, req.body.scientificName],
+    "DELETE FROM favList WHERE uid = $1 AND pid = $2",
+    [req.body.id_token, req.body.id],
     (err, res) => {
       if (err) {
         console.log(err.stack);
       }
+      console.log("res:", res);
     }
   );
 });
 
-app.post("/getLoggedFavs", function (req, res, next) {
-  console.log("Req:", req.body.id_token);
-  var loggedFavs = [];
+app.post("/getLoggedFavs", function (req, res) {
   pool
     .query(
       "SELECT p.name FROM plants p, favList f WHERE f.uid = $1 AND f.pid = p.id",
-      // [req.body.id_token],
-      ["116104233565721670000"]
+      [req.body.id_token]
     )
     .then((results) => {
-      console.log("Res is:", results);
       if (results.rowCount !== 0) {
         res.write(
           JSON.stringify(
@@ -168,6 +166,7 @@ async function verify(token) {
     audience: CLIENT_ID,
   });
   const payload = ticket.getPayload();
+  console.log("Payload", payload);
   const userid = payload["sub"];
   return userid;
 }

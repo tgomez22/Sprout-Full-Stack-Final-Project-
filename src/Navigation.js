@@ -84,8 +84,7 @@ function init() {
     body: JSON.stringify({ id_token }),
   })
     .then((res) => {
-      debugger;
-      return res.json();
+      return res.text();
     })
     .then((res) => {
       debugger;
@@ -100,8 +99,8 @@ function init() {
 
 function getIdToken() {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-  console.log(googleUser.Da);
-  return googleUser.Da;
+  console.log(googleUser.googleId);
+  return googleUser.googleID;
 }
 
 function dbLogin(id_token) {

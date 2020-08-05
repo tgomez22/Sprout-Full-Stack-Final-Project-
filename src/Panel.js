@@ -15,7 +15,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
       const token_id = getTokenId();
       if (isFavorited) {
         setIsFavorited(!isFavorited);
-        loggedUnfav(token_id, scientificName);
+        loggedUnfav(token_id, id);
       } else {
         setIsFavorited(!isFavorited);
         loggedFav(token_id, scientificName, id);
