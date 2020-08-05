@@ -12,6 +12,16 @@ img.mx-auto {
   padding-bottom: 10px;
 }
 
+ul#list {
+  margin-bottom: 2px;
+}
+
+button.btn-sm {
+  border-radius: 2px;
+  background-color: #566e3d;
+  color: white;
+}
+
 img {
   max-height: 60%;
   width: auto;
@@ -20,6 +30,17 @@ img {
 row {
   align-content: center;
   border: 2px solid blue;
+}
+
+button.btn.btn-primary-success {
+  background-color: #566e3d;
+  color: white;
+}
+
+button.btn.btn-primary-success:hover {
+  border: 2px solid black;
+  background-color: #9fc2cc;
+  color: black;
 }
 
 .App-header {
