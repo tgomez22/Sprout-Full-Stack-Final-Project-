@@ -40,7 +40,7 @@ function App() {
 }
 
 function getFavsLogged() {
-  // const id_token = getIdToken();
+  const id_token = getIdToken();
   return fetch("http://localhost:3000/getLoggedFavs", {
     headers: {
       "Content-type": "application/json",

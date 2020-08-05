@@ -1,16 +1,21 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { OAuth2Client } = require("google-auth-library");
-const { Pool } = require("pg");
+const { Client } = require("pg");
 
-var PORT = process.env.PORT || 3000;
+var SERVPORT = process.env.PORT || 3000;
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const SECRET_ID = process.env.REACT_APP_GOOGLE_SECRET_ID;
+const CONNECTION = process.env.CONNECTION_STRING;
+const HOST = process.env.HOST;
 
 const client = new OAuth2Client(CLIENT_ID);
 const app = express();
-const pool = new Pool();
+const pool = new Client({
+  connectionString: CONNECTION,
+});
 
 const favs = [
   "Clinopodium vulgare",
@@ -27,6 +32,14 @@ app.use(express.static(path.join(__dirname, "../build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+pool.connect((err) => {
+  if (err) {
+    console.error("connection error", err.stack);
+  } else {
+    console.log("connected");
+  }
+});
+
 app.get("/", function (res, req) {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
@@ -41,53 +54,59 @@ app.post("/verify", function (req, res) {
     .catch(console.error);
 });
 
-app.post("/login", (req, res, next) => {
+app.post("/login", (req, res) => {
+  console.log("Req is: ", req.body.id_token);
   pool.query(
     "SELECT * FROM users WHERE token_id = $1",
-    [req.params.token_id],
+    [req.body.id_token],
     (err, res) => {
       if (err) {
         pool.query(
-          "INSERT INTO users VALUES ($1)",
-          [req.params.token_id],
+          "INSERT INTO users(token_id) VALUES ($1)",
+          [req.body.id_token],
           (err, res) => {
-            if (err) {
-              return next(err);
-            }
-          }
-        );
-      }
-    }
-  );
-});
-
-app.post("/fav", (req, res, next) => {
-  pool.query(
-    "SELECT * FROM plants WHERE name = $1",
-    [req.params.scientificName],
-    (err, res) => {
-      if (err) {
-        pool.query(
-          "INSERT INTO plants VALUES ($1)",
-          [req.params.scientificName],
-          (err, res) => {
+            console.log("Res is ", res);
             if (err) {
               console.log(err.stack);
             }
           }
         );
       }
-      pool.query(
-        "INSERT INTO favList VALUES ((SELECT id FROM users WHERE users.token_id = $1), (SELECT id FROM plants WHERE plants.name = $2)",
-        [req.params.token_id, req.params.scientificName],
-        (err, res) => {
-          if (err) {
-            console.log(err.stack);
-          }
-        }
-      );
+      pool.query("SELECT * FROM users", (err, res) => {
+        console.log(err, res);
+      });
     }
   );
+});
+
+app.post("/fav", (req, res, next) => {
+  console.log("Req is :", req);
+  // pool.query(
+  //   "SELECT * FROM plants WHERE name = $1",
+  //   [req.params.scientificName],
+  //   (err, res) => {
+  //     if (err) {
+  //       pool.query(
+  //         "INSERT INTO plants VALUES ($1)",
+  //         [req.params.scientificName],
+  //         (err, res) => {
+  //           if (err) {
+  //             console.log(err.stack);
+  //           }
+  //         }
+  //       );
+  //     }
+  //     pool.query(
+  //       "INSERT INTO favList VALUES ((SELECT id FROM users WHERE users.token_id = $1), (SELECT id FROM plants WHERE plants.name = $2)",
+  //       [req.params.token_id, req.params.scientificName],
+  //       (err, res) => {
+  //         if (err) {
+  //           console.log(err.stack);
+  //         }
+  //       }
+  //     );
+  //   }
+  // );
 });
 
 app.post("/unfav", (req, res, next) => {
@@ -122,9 +141,9 @@ app.post("/getLoggedFavs", function (req, res, next) {
   res.end();
 });
 
-app.listen(PORT, function (error) {
+app.listen(SERVPORT, function (error) {
   if (error) throw error;
-  console.log("Server is now running on port " + PORT);
+  console.log("Server is now running on port " + SERVPORT);
 });
 
 async function verify(token) {

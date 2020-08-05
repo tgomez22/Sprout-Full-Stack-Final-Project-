@@ -70,8 +70,13 @@ function init() {
   window.gapi.load("auth2", function () {
     window.gapi.auth2.init({ client_id: CLIENT_ID });
   });
-  const id_token = getIdToken();
-  fetch("http://localhost:3000/verify", {
+  // const id_token = getIdToken();
+  // const id_token = window.gapi.auth2.getAuthInstance().id_token;
+  const id_token = window.gapi.auth2
+    .getAuthInstance()
+    .currentUser.get()
+    .getAuthResponse().id_token;
+  const user_id = fetch("http://localhost:3000/verify", {
     headers: {
       "Content-type": "application/json",
     },
@@ -85,16 +90,18 @@ function init() {
     .then((res) => {
       debugger;
       console.log("Signed in as:" + res);
+      dbLogin(res);
+      return res;
     })
     .catch((error) => {
       console.log("Request failed", error);
     });
-  dbLogin(id_token);
 }
 
 function getIdToken() {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-  return googleUser.getAuthResponse().id_token;
+  console.log(googleUser.Da);
+  return googleUser.Da;
 }
 
 function dbLogin(id_token) {

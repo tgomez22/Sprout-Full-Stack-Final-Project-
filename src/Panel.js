@@ -19,7 +19,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
         loggedUnfav(token_id, scientificName);
       } else {
         setIsFavorited(!isFavorited);
-        loggedFav(id_token, scientificName);
+        loggedFav(token_id, scientificName);
       }
     } else {
       setIsFavorited(!isFavorited);
@@ -31,53 +31,57 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   }
 
   function loggedFav(token_id, scientificName) {
-    return fetch("http://localhost:3000/fav", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ id_token }),
-    })
-      .then((res) => {
-        debugger;
-        return res.json();
+    return (
+      fetch("http://localhost:3000/fav", {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ token_id, scientificName }),
       })
-      .then((res) => {
-        debugger;
-        // console.log("Response: " + res);
-        // const ids = res.toString();
-        // console.log("Ids: " + ids);
-        console.log("URL: " + proxyUrl + url + res);
-        return proxyUrl + url + res;
-      })
-      .catch((error) => {
-        console.log("Request failed", error);
-      });
+        // .then((res) => {
+        //   debugger;
+        //   return res.json();
+        // })
+        // .then((res) => {
+        //   debugger;
+        //   // console.log("Response: " + res);
+        //   // const ids = res.toString();
+        //   // console.log("Ids: " + ids);
+        //   console.log("URL: " + proxyUrl + url + res);
+        //   return proxyUrl + url + res;
+        // })
+        .catch((error) => {
+          console.log("Request failed", error);
+        })
+    );
   }
 
   function loggedUnfav(token_id, scientificName) {
-    return fetch("http://localhost:3000/unfav", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ id_token }),
-    })
-      .then((res) => {
-        debugger;
-        return res.json();
+    return (
+      fetch("http://localhost:3000/unfav", {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ token_id, scientificName }),
       })
-      .then((res) => {
-        debugger;
-        // console.log("Response: " + res);
-        // const ids = res.toString();
-        // console.log("Ids: " + ids);
-        console.log("URL: " + proxyUrl + url + res);
-        return proxyUrl + url + res;
-      })
-      .catch((error) => {
-        console.log("Request failed", error);
-      });
+        // .then((res) => {
+        //   debugger;
+        //   return res.json();
+        // })
+        // .then((res) => {
+        //   debugger;
+        //   // console.log("Response: " + res);
+        //   // const ids = res.toString();
+        //   // console.log("Ids: " + ids);
+        //   console.log("URL: " + proxyUrl + url + res);
+        //   return proxyUrl + url + res;
+        // })
+        .catch((error) => {
+          console.log("Request failed", error);
+        })
+    );
   }
 
   return (
