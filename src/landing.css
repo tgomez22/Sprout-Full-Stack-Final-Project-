@@ -10,6 +10,7 @@ body {
 
 .container {
   height: 100vh;
+  min-height: 80vh;
   background-color: #566e3d;
 }
 

@@ -2,39 +2,60 @@ import React, { useState } from "react";
 import logo from "./sprout.png";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Navigation from "./Navigation";
+import PlantPage from "./plantPage";
+import { Router, Route, Redirect, BrowserRouter, Link } from "react-router-dom";
+import { render } from "@testing-library/react";
+/*https://trefle.io/api/v1/plants/{id}?token=*/
+
+const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   const currFav = localStorage.getItem(`Sprout_${id}_favorited`) === "true";
   const [isFavorited, setIsFavorited] = useState(currFav);
   const icon = previewImage ? previewImage : logo;
 
   return (
-    <div className="col-lg-3 col-md-4 col-sm-12">
-      <header className="App-header">
-        <img className="mx-auto" src={icon} alt="logo" />
-        <div className="row">
-          <div className="col-3 ">
-            <button
-              onClick={() => {
-                setIsFavorited(!isFavorited);
-                localStorage.setItem(
-                  `Sprout_${id}_favorited`,
-                  String(!isFavorited)
-                );
-              }}
-            >
-              I'm {isFavorited ? "favorited" : "not favorited"}!
-            </button>
+    <Router>
+      <div className="col-lg-3 col-md-4 col-sm-6">
+        <header className="App-header">
+          <img className="mx-auto" src={icon} alt="logo" />
+          <div className="row">
+            <div className="col-3 ">
+              <button
+                className="btn btn-primary-success"
+                onClick={() => {
+                  setIsFavorited(!isFavorited);
+                  localStorage.setItem(
+                    `Sprout_${id}_favorited`,
+                    String(!isFavorited)
+                  );
+                }}
+              >
+                I'm {isFavorited ? "favorited" : "not favorited"}!
+              </button>
+            </div>
+            <div className="col-9">
+              <ul id="list">
+                <li>Scientific name: {scientificName}</li>
+                <li>Genus: {genusName}</li>
+                <li>Family: {familyName}</li>
+              </ul>
+              <button
+                onClick={() => {
+                  let redirectUrl = `https://trefle.io/api/v1/plants/${id}?&token=${apiKey}`;
+                  console.log(redirectUrl);
+                  <PlantPage url={redirectUrl} />;
+                  return <Redirect to="/plantPage" />;
+                }}
+              >
+                See me!
+              </button>
+            </div>
           </div>
-          <div className="col-9">
-            <ul>
-              <li>Scientific name: {scientificName}</li>
-              <li>Genus: {genusName}</li>
-              <li>Family: {familyName}</li>
-            </ul>
-          </div>
-        </div>
-      </header>
-    </div>
+        </header>
+      </div>
+      <Route path="/plantPage" component={PlantPage} />
+    </Router>
   );
 }
 export default Panel;
