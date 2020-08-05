@@ -32,6 +32,7 @@ function App() {
       <div className="container-fluid">
         <div className="row">
           <PanelDriver url={finalURL} />
+          {/* <PanelDriver url={proxyUrl + url} /> */}
           {/* <PlantPage url={proxyUrl + url} /> */}
         </div>
       </div>
@@ -41,6 +42,7 @@ function App() {
 
 function getFavsLogged() {
   const id_token = getIdToken();
+  console.log("id token", id_token);
   return fetch("http://localhost:3000/getLoggedFavs", {
     headers: {
       "Content-type": "application/json",

@@ -47,7 +47,6 @@ app.get("/", function (res, req) {
 app.post("/verify", function (req, res) {
   return verify(req.body.id_token)
     .then((userid) => {
-      // console.log(userid);
       res.write(userid);
       res.end();
     })
@@ -55,64 +54,73 @@ app.post("/verify", function (req, res) {
 });
 
 app.post("/login", (req, res) => {
-  console.log("Req is: ", req.body.id_token);
   pool.query(
     "SELECT * FROM users WHERE token_id = $1",
     [req.body.id_token],
     (err, res) => {
-      if (err) {
+      if (res.rowCount === 0) {
+        console.log("We're here!");
         pool.query(
           "INSERT INTO users(token_id) VALUES ($1)",
           [req.body.id_token],
           (err, res) => {
-            console.log("Res is ", res);
+            if (err) {
+              console.log("Error: ", err.stack);
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.post("/fav", (req, res, next) => {
+  pool.query(
+    "SELECT * FROM plants WHERE name = $1",
+    [req.body.scientificName],
+    (err, res) => {
+      if (res.rowCount === 0) {
+        pool.query(
+          "INSERT INTO plants(id, name) VALUES ($1, $2)",
+          [req.body.id, req.body.scientificName],
+          (err, res) => {
             if (err) {
               console.log(err.stack);
             }
           }
         );
       }
-      pool.query("SELECT * FROM users", (err, res) => {
-        console.log(err, res);
-      });
+      pool.query(
+        "SELECT id FROM plants WHERE plants.name = $1",
+        [req.body.scientificName],
+        (err, res) => {
+          pool.query(
+            "SELECT * FROM favList WHERE pid=$1",
+            [res.rows[0].id],
+            (err, res) => {
+              if (res.rowount === 0) {
+                pool.query(
+                  "INSERT INTO favList(uid, pid) VALUES ($1, $2)",
+                  ["116104233565721670000", res.rows[0].id],
+                  (err, res) => {
+                    if (err) {
+                      console.log(err.stack);
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      );
     }
   );
-});
-
-app.post("/fav", (req, res, next) => {
-  console.log("Req is :", req);
-  // pool.query(
-  //   "SELECT * FROM plants WHERE name = $1",
-  //   [req.params.scientificName],
-  //   (err, res) => {
-  //     if (err) {
-  //       pool.query(
-  //         "INSERT INTO plants VALUES ($1)",
-  //         [req.params.scientificName],
-  //         (err, res) => {
-  //           if (err) {
-  //             console.log(err.stack);
-  //           }
-  //         }
-  //       );
-  //     }
-  //     pool.query(
-  //       "INSERT INTO favList VALUES ((SELECT id FROM users WHERE users.token_id = $1), (SELECT id FROM plants WHERE plants.name = $2)",
-  //       [req.params.token_id, req.params.scientificName],
-  //       (err, res) => {
-  //         if (err) {
-  //           console.log(err.stack);
-  //         }
-  //       }
-  //     );
-  //   }
-  // );
 });
 
 app.post("/unfav", (req, res, next) => {
   pool.query(
     "DELETE FROM favList f WHERE f.uid = (SELECT id FROM users WHERE user.token_id = $1) AND f.pid = (SELECT id FROM plants WHERE plant.name = $2)",
-    [req.params.token_id, req.params.scientificName],
+    [req.body.id_token, req.body.scientificName],
     (err, res) => {
       if (err) {
         console.log(err.stack);
@@ -122,23 +130,30 @@ app.post("/unfav", (req, res, next) => {
 });
 
 app.post("/getLoggedFavs", function (req, res, next) {
-  // console.log("Hello!! Res: " + res);
-  // console.log("Goodbye! Favs: " + favs);
-  const loggedFavs = [];
-  pool.query(
-    "SELECT p.name FROM users u, plants p, favList f WHERE u.token_id = $1 AND u.id = f.uid AND f.pid = p.id",
-    [req.params.token_id],
-    (err, res) => {
-      if (err) {
-        console.log(err.stack);
+  console.log("Req:", req.body.id_token);
+  var loggedFavs = [];
+  pool
+    .query(
+      "SELECT p.name FROM plants p, favList f WHERE f.uid = $1 AND f.pid = p.id",
+      // [req.body.id_token],
+      ["116104233565721670000"]
+    )
+    .then((results) => {
+      console.log("Res is:", results);
+      if (results.rowCount !== 0) {
+        res.write(
+          JSON.stringify(
+            results.rows.map((row) => {
+              return row.name;
+            })
+          )
+        );
+      } else {
+        res.write(JSON.stringify("null"));
       }
-    }
-  );
-
-  console.log(result.rows);
-
-  res.write(JSON.stringify(loggedFavs));
-  res.end();
+      res.end();
+    })
+    .catch((err) => console.log(err));
 });
 
 app.listen(SERVPORT, function (error) {

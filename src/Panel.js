@@ -11,7 +11,6 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
 
   function handleFavs() {
     const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-    console.log(googleUser.isSignedIn());
     if (googleUser.isSignedIn()) {
       const token_id = getTokenId();
       if (isFavorited) {
@@ -19,7 +18,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
         loggedUnfav(token_id, scientificName);
       } else {
         setIsFavorited(!isFavorited);
-        loggedFav(token_id, scientificName);
+        loggedFav(token_id, scientificName, id);
       }
     } else {
       setIsFavorited(!isFavorited);
@@ -30,60 +29,6 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
     }
   }
 
-  function loggedFav(token_id, scientificName) {
-    return (
-      fetch("http://localhost:3000/fav", {
-        headers: {
-          "Content-type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({ token_id, scientificName }),
-      })
-        // .then((res) => {
-        //   debugger;
-        //   return res.json();
-        // })
-        // .then((res) => {
-        //   debugger;
-        //   // console.log("Response: " + res);
-        //   // const ids = res.toString();
-        //   // console.log("Ids: " + ids);
-        //   console.log("URL: " + proxyUrl + url + res);
-        //   return proxyUrl + url + res;
-        // })
-        .catch((error) => {
-          console.log("Request failed", error);
-        })
-    );
-  }
-
-  function loggedUnfav(token_id, scientificName) {
-    return (
-      fetch("http://localhost:3000/unfav", {
-        headers: {
-          "Content-type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({ token_id, scientificName }),
-      })
-        // .then((res) => {
-        //   debugger;
-        //   return res.json();
-        // })
-        // .then((res) => {
-        //   debugger;
-        //   // console.log("Response: " + res);
-        //   // const ids = res.toString();
-        //   // console.log("Ids: " + ids);
-        //   console.log("URL: " + proxyUrl + url + res);
-        //   return proxyUrl + url + res;
-        // })
-        .catch((error) => {
-          console.log("Request failed", error);
-        })
-    );
-  }
-
   return (
     <div className="col-3">
       <header className="App-header">
@@ -92,7 +37,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
           <div className="col-3">
             <button
               onClick={
-                handleFavs()
+                handleFavs
                 //   () => {
                 //   setIsFavorited(!isFavorited);
                 //   localStorage.setItem(
@@ -117,4 +62,59 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
     </div>
   );
 }
+
+function loggedFav(token_id, scientificName, id) {
+  return (
+    fetch("http://localhost:3000/fav", {
+      headers: {
+        "Content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ token_id, scientificName, id }),
+    })
+      // .then((res) => {
+      //   debugger;
+      //   return res.json();
+      // })
+      // .then((res) => {
+      //   debugger;
+      //   // console.log("Response: " + res);
+      //   // const ids = res.toString();
+      //   // console.log("Ids: " + ids);
+      //   console.log("URL: " + proxyUrl + url + res);
+      //   return proxyUrl + url + res;
+      // })
+      .catch((error) => {
+        console.log("Request failed", error);
+      })
+  );
+}
+
+function loggedUnfav(token_id, scientificName) {
+  return (
+    fetch("http://localhost:3000/unfav", {
+      headers: {
+        "Content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ token_id, scientificName }),
+    })
+      // .then((res) => {
+      //   debugger;
+      //   return res.json();
+      // })
+      // .then((res) => {
+      //   debugger;
+      //   // console.log("Response: " + res);
+      //   // const ids = res.toString();
+      //   // console.log("Ids: " + ids);
+      //   console.log("URL: " + proxyUrl + url + res);
+      //   return proxyUrl + url + res;
+      // })
+      .catch((error) => {
+        console.log("Request failed", error);
+      })
+  );
+}
+
 export default Panel;
