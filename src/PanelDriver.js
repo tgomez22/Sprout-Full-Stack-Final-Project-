@@ -5,14 +5,14 @@ function PanelDriver({ url }) {
   const [values, setValues] = useState(null);
 
   useEffect(() => {
-    console.log("Paneldriver url recieved: " + url);
+    if (!url) return;
     fetch(url, { headers: { Origin: "localhost" } })
       .then((response) => response.json())
       .then(({ data }) => {
         setValues(data);
       })
       .catch((error) => {
-        console.log("Request failed", error);
+        console.error("Request failed", error);
       });
   }, [url]);
 

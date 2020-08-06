@@ -13,13 +13,12 @@ const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes o
 const url = `https://trefle.io/api/v1/species?token=${apiKey}&limit=8&filter[scientific_name]=`;
 
 function App({ isGoogleLoaded }) {
-  const [finalURL, setFinalUrl] = useState([]);
+  const [finalURL, setFinalUrl] = useState(null);
 
   useEffect(() => {
-    if (!isGoogleLoaded) return;
-    const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-    console.log(googleUser.isSignedIn());
-    googleUser.isSignedIn()
+    // const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+    // console.log(googleUser.isSignedIn());
+    isGoogleLoaded
       ? getFavsLogged().then((res) => {
           setFinalUrl(res);
         })
@@ -27,16 +26,32 @@ function App({ isGoogleLoaded }) {
   }, [isGoogleLoaded]);
 
   console.log("Final url: " + finalURL);
-  return (
-    <div className="App">
-      <div className="container-fluid">
-        <div className="row">
-          <PanelDriver url={finalURL} />
-          {/* <PanelDriver url={proxyUrl + url} /> */}
-          {/* <PlantPage url={proxyUrl + url} /> */}
+  return finalURL ? (
+    finalURL === proxyUrl + url ? (
+      <div className="App">
+        <div className="container-fluid">
+          <div className="row">
+            <h1>You don't have any favorites yet! Consider some of these...</h1>
+
+            <PanelDriver url={finalURL} />
+            {/* <PanelDriver url={proxyUrl + url} /> */}
+            {/* <PlantPage url={proxyUrl + url} /> */}
+          </div>
         </div>
       </div>
-    </div>
+    ) : (
+      <div className="App">
+        <div className="container-fluid">
+          <div className="row">
+            <PanelDriver url={finalURL} />
+            {/* <PanelDriver url={proxyUrl + url} /> */}
+            {/* <PlantPage url={proxyUrl + url} /> */}
+          </div>
+        </div>
+      </div>
+    )
+  ) : (
+    <h1>Loading...</h1>
   );
 }
 
