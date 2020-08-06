@@ -12,11 +12,11 @@ const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes o
 // const url = `https://trefle.io/api/v1/plants/111119?q=basil&limit=8&token=${apiKey}`;
 const url = `https://trefle.io/api/v1/species?token=${apiKey}&limit=8&filter[scientific_name]=`;
 
-function App() {
+function App({ isGoogleLoaded }) {
   const [finalURL, setFinalUrl] = useState([]);
 
   useEffect(() => {
-    // const id_token = getIdToken();
+    if (!isGoogleLoaded) return;
     const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
     console.log(googleUser.isSignedIn());
     googleUser.isSignedIn()
@@ -24,7 +24,7 @@ function App() {
           setFinalUrl(res);
         })
       : setFinalUrl(getFavsLocal());
-  }, []);
+  }, [isGoogleLoaded]);
 
   console.log("Final url: " + finalURL);
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FormControl from "react-bootstrap/FormControl";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navigation.css";
@@ -21,7 +21,36 @@ const responseGoogle = (response) => {
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
 export function Navigation() {
-  // useEffect(init, []);
+  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
+
+  function init() {
+    setIsGoogleLoaded(true);
+    // const id_token = getIdToken();
+    // const id_token = window.gapi.auth2.getAuthInstance().id_token;
+    const id_token = window.gapi.auth2
+      .getAuthInstance()
+      .currentUser.get()
+      .getAuthResponse().id_token;
+    fetch("http://localhost:3000/verify", {
+      headers: {
+        "Content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ id_token }),
+    })
+      .then((res) => {
+        return res.text();
+      })
+      .then((res) => {
+        debugger;
+        console.log("Signed in as:" + res);
+        dbLogin(res);
+        return res;
+      })
+      .catch((error) => {
+        console.log("Request failed", error);
+      });
+  }
 
   return (
     <Router>
@@ -60,41 +89,15 @@ export function Navigation() {
       </Navbar>
       <Route path="/" exact component={LandingPage} />
       {/* <Route path="/garden" component={Weather} /> */}
-      <Route path="/garden" component={App} />
+      <Route
+        path="/garden"
+        component={(props) => (
+          <App {...props} isGoogleLoaded={isGoogleLoaded} />
+        )}
+      />
       <Route path="/about" component={AboutUs} />
     </Router>
   );
-}
-
-function init() {
-  window.gapi.load("auth2", function () {
-    window.gapi.auth2.init({ client_id: CLIENT_ID });
-  });
-  // const id_token = getIdToken();
-  // const id_token = window.gapi.auth2.getAuthInstance().id_token;
-  const id_token = window.gapi.auth2
-    .getAuthInstance()
-    .currentUser.get()
-    .getAuthResponse().id_token;
-  fetch("http://localhost:3000/verify", {
-    headers: {
-      "Content-type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({ id_token }),
-  })
-    .then((res) => {
-      return res.text();
-    })
-    .then((res) => {
-      debugger;
-      console.log("Signed in as:" + res);
-      dbLogin(res);
-      return res;
-    })
-    .catch((error) => {
-      console.log("Request failed", error);
-    });
 }
 
 function getIdToken() {

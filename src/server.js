@@ -11,22 +11,11 @@ const SECRET_ID = process.env.REACT_APP_GOOGLE_SECRET_ID;
 const CONNECTION = process.env.CONNECTION_STRING;
 const HOST = process.env.HOST;
 
-const client = new OAuth2Client(CLIENT_ID);
+const gClient = new OAuth2Client(CLIENT_ID);
 const app = express();
 const client = new Client({
   connectionString: CONNECTION,
 });
-
-const favs = [
-  "Clinopodium vulgare",
-  "Clinopodium acinos",
-  "Ocimum gratissimum",
-  "Ocimum americanum",
-  "Ocimum basilicum",
-  "Ocimum campechianum",
-  "Ocimum tenuiflorum",
-  "Clinopodium alpinum",
-];
 
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +29,7 @@ client.connect((err) => {
   }
 });
 
-app.get("/", function (res, req) {
+app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
@@ -176,7 +165,7 @@ app.listen(SERVPORT, function (error) {
 });
 
 async function verify(token) {
-  const ticket = await client.verifyIdToken({
+  const ticket = await gClient.verifyIdToken({
     idToken: token,
     audience: CLIENT_ID,
   });
