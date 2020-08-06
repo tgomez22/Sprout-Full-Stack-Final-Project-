@@ -7,9 +7,7 @@ const { Client } = require("pg");
 
 var SERVPORT = process.env.PORT || 3000;
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-const SECRET_ID = process.env.REACT_APP_GOOGLE_SECRET_ID;
 const CONNECTION = process.env.CONNECTION_STRING;
-const HOST = process.env.HOST;
 
 const gClient = new OAuth2Client(CLIENT_ID);
 const app = express();
@@ -43,85 +41,69 @@ app.post("/verify", function (req, res) {
 });
 
 app.post("/login", (req, res) => {
-  client.query(
-    "SELECT * FROM users WHERE token_id = $1",
-    [req.body.id_token],
-    (err, res) => {
+  client
+    .query("SELECT * FROM users WHERE token_id = $1", [req.body.id_token])
+    .then((res) => {
       if (res.rowCount === 0) {
-        console.log("We're here!");
-        client.query(
-          "INSERT INTO users(token_id) VALUES ($1)",
-          [req.body.id_token],
-          (err, res) => {
-            if (err) {
-              console.log("Error: ", err.stack);
-            }
-          }
-        );
+        client
+          .query("INSERT INTO users(token_id) VALUES ($1)", [req.body.id_token])
+          .catch((err) => {
+            console.error(err.stack);
+          });
       }
-    }
-  );
+    })
+    .catch((err) => console.error(err.stack));
 });
 
-app.post("/fav", (req, res, next) => {
-  client.query(
-    "SELECT * FROM plants WHERE name = $1",
-    [req.body.scientificName],
-    (err, res) => {
+app.post("/fav", (req, res) => {
+  client
+    .query("SELECT * FROM plants WHERE name = $1", [req.body.scientificName])
+    .then((res) => {
       if (res.rowCount === 0) {
-        client.query(
-          "INSERT INTO plants(id, name) VALUES ($1, $2)",
-          [req.body.id, req.body.scientificName],
-          (err, res) => {
-            if (err) {
-              console.log(err.stack);
-            }
-          }
-        );
+        client
+          .query("INSERT INTO plants(id, name) VALUES ($1, $2)", [
+            req.body.id,
+            req.body.scientificName,
+          ])
+          .catch((err) => console.err(err.stack));
       }
-      client.query(
-        "SELECT id FROM plants WHERE plants.name = $1",
-        [req.body.scientificName],
-        (err, res) => {
-          client.query(
-            "SELECT * FROM favList WHERE pid=$1 AND uid = $2",
-            [res.rows[0].id, req.body.token_id],
-            (err, results) => {
+      client
+        .query("SELECT id FROM plants WHERE plants.name = $1", [
+          req.body.scientificName,
+        ])
+        .then((res) => {
+          client
+            .query("SELECT * FROM favList WHERE pid=$1 AND uid = $2", [
+              res.rows[0].id,
+              req.body.token_id,
+            ])
+            .then((results) => {
               if (results.rowCount === 0) {
-                client.query(
-                  "INSERT INTO favList(uid, pid) VALUES ($1, $2)",
-                  [req.body.token_id, res.rows[0].id],
-                  (err, res) => {
-                    if (err) {
-                      console.log(err.stack);
-                    }
-                  }
-                );
+                client
+                  .query("INSERT INTO favList(uid, pid) VALUES ($1, $2)", [
+                    req.body.token_id,
+                    res.rows[0].id,
+                  ])
+                  .catch((err) => console.error(err.stack));
               }
-            }
-          );
-        }
-      );
-    }
-  );
+            })
+            .catch((err) => console.error(err.stack));
+        })
+        .catch((err) => console.error(err.stack));
+    })
+    .catch((err) => console.error(err.stack));
 });
 
 app.post("/unfav", (req, res) => {
-  console.log("We're in unfav!");
-  client.query(
-    "DELETE FROM favList WHERE uid = $1 AND pid = $2",
-    [req.body.token_id, req.body.id],
-    (err, res) => {
-      if (err) {
-        console.log(err.stack);
-      }
-      console.log("res:", res);
-    }
-  );
+  client
+    .query("DELETE FROM favList WHERE uid = $1 AND pid = $2", [
+      req.body.token_id,
+      req.body.id,
+    ])
+    .catch((err) => console.error(err.stack));
 });
 
 app.post("/checkIfFaved", (req, res) => {
-  console.log("We're checking!");
   client
     .query("SELECT * FROM favList WHERE uid = $1 AND pid = $2", [
       req.body.token_id,
