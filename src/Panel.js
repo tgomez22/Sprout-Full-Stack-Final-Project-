@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./sprout.png";
 import "./App.css";
 import getTokenId from "./Navigation";
+import GoogleLogin from "react-google-login";
 
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
-  const currFav =
-    localStorage.getItem(`Sprout_favorited_${scientificName}`) === "true";
-  const [isFavorited, setIsFavorited] = useState(currFav);
+  const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+  const [isFavorited, setIsFavorited] = useState(false);
   const icon = previewImage ? previewImage : logo;
 
+  useEffect(() => {
+    checkIfFaved(googleUser.googleId, id)
+      .then((res) => {
+        setIsFavorited(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   function handleFavs() {
-    const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
     if (googleUser.isSignedIn()) {
-      const token_id = getTokenId();
+      const token_id = googleUser.googleId;
       if (isFavorited) {
         setIsFavorited(!isFavorited);
         loggedUnfav(token_id, id);
@@ -26,6 +35,34 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
         `Sprout_favorited_${scientificName}`,
         String(!isFavorited)
       );
+    }
+  }
+
+  function checkIfFaved(token_id, id) {
+    const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
+    if (googleUser.isSignedIn()) {
+      return fetch("http://localhost:3000/checkIfFaved", {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ token_id, id }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          return !!res[0];
+        })
+        .catch((error) => {
+          console.error("Request failed", error);
+        });
+    } else {
+      return new Promise((resolve) => {
+        resolve(
+          localStorage.getItem(`Sprout_favorited_${scientificName}`) === "true"
+        );
+      });
     }
   }
 
@@ -90,14 +127,14 @@ function loggedFav(token_id, scientificName, id) {
   );
 }
 
-function loggedUnfav(token_id, scientificName) {
+function loggedUnfav(token_id, id) {
   return (
     fetch("http://localhost:3000/unfav", {
       headers: {
         "Content-type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ token_id, scientificName }),
+      body: JSON.stringify({ token_id, id }),
     })
       // .then((res) => {
       //   debugger;

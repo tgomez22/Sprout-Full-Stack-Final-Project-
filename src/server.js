@@ -13,7 +13,7 @@ const HOST = process.env.HOST;
 
 const client = new OAuth2Client(CLIENT_ID);
 const app = express();
-const pool = new Client({
+const client = new Client({
   connectionString: CONNECTION,
 });
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "../build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-pool.connect((err) => {
+client.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
   } else {
@@ -54,13 +54,13 @@ app.post("/verify", function (req, res) {
 });
 
 app.post("/login", (req, res) => {
-  pool.query(
+  client.query(
     "SELECT * FROM users WHERE token_id = $1",
     [req.body.id_token],
     (err, res) => {
       if (res.rowCount === 0) {
         console.log("We're here!");
-        pool.query(
+        client.query(
           "INSERT INTO users(token_id) VALUES ($1)",
           [req.body.id_token],
           (err, res) => {
@@ -75,12 +75,12 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/fav", (req, res, next) => {
-  pool.query(
+  client.query(
     "SELECT * FROM plants WHERE name = $1",
     [req.body.scientificName],
     (err, res) => {
       if (res.rowCount === 0) {
-        pool.query(
+        client.query(
           "INSERT INTO plants(id, name) VALUES ($1, $2)",
           [req.body.id, req.body.scientificName],
           (err, res) => {
@@ -90,18 +90,18 @@ app.post("/fav", (req, res, next) => {
           }
         );
       }
-      pool.query(
+      client.query(
         "SELECT id FROM plants WHERE plants.name = $1",
         [req.body.scientificName],
         (err, res) => {
-          pool.query(
-            "SELECT * FROM favList WHERE pid=$1",
-            [res.rows[0].id],
-            (err, res) => {
-              if (res.rowount === 0) {
-                pool.query(
+          client.query(
+            "SELECT * FROM favList WHERE pid=$1 AND uid = $2",
+            [res.rows[0].id, req.body.token_id],
+            (err, results) => {
+              if (results.rowCount === 0) {
+                client.query(
                   "INSERT INTO favList(uid, pid) VALUES ($1, $2)",
-                  ["116104233565721670000", res.rows[0].id],
+                  [req.body.token_id, res.rows[0].id],
                   (err, res) => {
                     if (err) {
                       console.log(err.stack);
@@ -119,9 +119,9 @@ app.post("/fav", (req, res, next) => {
 
 app.post("/unfav", (req, res) => {
   console.log("We're in unfav!");
-  pool.query(
+  client.query(
     "DELETE FROM favList WHERE uid = $1 AND pid = $2",
-    [req.body.id_token, req.body.id],
+    [req.body.token_id, req.body.id],
     (err, res) => {
       if (err) {
         console.log(err.stack);
@@ -131,8 +131,24 @@ app.post("/unfav", (req, res) => {
   );
 });
 
+app.post("/checkIfFaved", (req, res) => {
+  console.log("We're checking!");
+  client
+    .query("SELECT * FROM favList WHERE uid = $1 AND pid = $2", [
+      req.body.token_id,
+      req.body.id,
+    ])
+    .then((results) => {
+      res.write(JSON.stringify(results.rows));
+      res.end();
+    })
+    .catch((err) => {
+      console.log(err.stack);
+    });
+});
+
 app.post("/getLoggedFavs", function (req, res) {
-  pool
+  client
     .query(
       "SELECT p.name FROM plants p, favList f WHERE f.uid = $1 AND f.pid = p.id",
       [req.body.id_token]
@@ -160,13 +176,11 @@ app.listen(SERVPORT, function (error) {
 });
 
 async function verify(token) {
-  // console.log(token);
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: CLIENT_ID,
   });
   const payload = ticket.getPayload();
-  console.log("Payload", payload);
   const userid = payload["sub"];
   return userid;
 }

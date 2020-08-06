@@ -41,8 +41,10 @@ function App() {
 }
 
 function getFavsLogged() {
-  const id_token = getIdToken();
-  console.log("id token", id_token);
+  // const id_token = getIdToken();
+  const id_token = window.gapi.auth2.getAuthInstance().currentUser.get()
+    .googleId;
+  console.log("getting id token", id_token);
   return fetch("http://localhost:3000/getLoggedFavs", {
     headers: {
       "Content-type": "application/json",

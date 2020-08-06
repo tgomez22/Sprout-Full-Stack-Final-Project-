@@ -76,7 +76,7 @@ function init() {
     .getAuthInstance()
     .currentUser.get()
     .getAuthResponse().id_token;
-  const user_id = fetch("http://localhost:3000/verify", {
+  fetch("http://localhost:3000/verify", {
     headers: {
       "Content-type": "application/json",
     },
@@ -99,7 +99,7 @@ function init() {
 
 function getIdToken() {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-  console.log(googleUser.googleId);
+  console.log("getting", googleUser.googleId);
   return googleUser.googleID;
 }
 
