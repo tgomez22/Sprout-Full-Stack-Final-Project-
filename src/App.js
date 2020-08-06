@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import PanelDriver from "./PanelDriver";
 import PlantPage from "./plantPage";
-import getIdToken from "./Navigation";
 import GoogleLogin from "react-google-login";
 
 const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
@@ -16,8 +15,6 @@ function App({ isGoogleLoaded }) {
   const [finalURL, setFinalUrl] = useState(null);
 
   useEffect(() => {
-    // const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-    // console.log(googleUser.isSignedIn());
     isGoogleLoaded
       ? getFavsLogged().then((res) => {
           setFinalUrl(res);
@@ -56,7 +53,6 @@ function App({ isGoogleLoaded }) {
 }
 
 function getFavsLogged() {
-  // const id_token = getIdToken();
   const id_token = window.gapi.auth2.getAuthInstance().currentUser.get()
     .googleId;
   console.log("getting id token", id_token);
@@ -68,14 +64,9 @@ function getFavsLogged() {
     body: JSON.stringify({ id_token }),
   })
     .then((res) => {
-      debugger;
       return res.json();
     })
     .then((res) => {
-      debugger;
-      // console.log("Response: " + res);
-      // const ids = res.toString();
-      // console.log("Ids: " + ids);
       console.log("URL: " + proxyUrl + url + res);
       return proxyUrl + url + res;
     })

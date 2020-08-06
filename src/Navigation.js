@@ -25,8 +25,6 @@ export function Navigation() {
 
   function init() {
     setIsGoogleLoaded(true);
-    // const id_token = getIdToken();
-    // const id_token = window.gapi.auth2.getAuthInstance().id_token;
     const id_token = window.gapi.auth2
       .getAuthInstance()
       .currentUser.get()
@@ -100,12 +98,6 @@ export function Navigation() {
   );
 }
 
-function getIdToken() {
-  const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
-  console.log("getting", googleUser.googleId);
-  return googleUser.googleID;
-}
-
 function dbLogin(id_token) {
   fetch("http://localhost:3000/login", {
     headers: {
@@ -113,18 +105,7 @@ function dbLogin(id_token) {
     },
     method: "POST",
     body: JSON.stringify({ id_token }),
-  })
-    // .then((res) => {
-    //   debugger;
-    //   return res.json();
-    // })
-    // .then((res) => {
-    //   debugger;
-    //   console.log("Signed in as:" + res);
-    // })
-    .catch((error) => {
-      console.log("Request failed", error);
-    });
+  }).catch((error) => {
+    console.log("Request failed", error);
+  });
 }
-
-export default getIdToken;
