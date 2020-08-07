@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import PanelDriver from "./PanelDriver";
-import PlantPage from "./plantPage";
-import GoogleLogin from "react-google-login";
+import PageButtons from "./pageButtons";
 
 const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 
@@ -29,8 +28,7 @@ function App({ isGoogleLoaded }) {
         <div className="container-fluid">
           <div className="row">
             <h1>You don't have any favorites yet! Consider some of these...</h1>
-
-            <PanelDriver url={finalURL} />
+            {/* <PanelDriver url={finalURL} /> */}
             {/* <PanelDriver url={proxyUrl + url} /> */}
             {/* <PlantPage url={proxyUrl + url} /> */}
           </div>
@@ -40,7 +38,8 @@ function App({ isGoogleLoaded }) {
       <div className="App">
         <div className="container-fluid">
           <div className="row">
-            <PanelDriver url={finalURL} />
+            <PageButtons setFinalUrl={setFinalUrl} />
+            {/* <PanelDriver url={finalURL} /> */}
             {/* <PanelDriver url={proxyUrl + url} /> */}
             {/* <PlantPage url={proxyUrl + url} /> */}
           </div>
@@ -49,6 +48,7 @@ function App({ isGoogleLoaded }) {
     )
   ) : (
     <h1>Loading...</h1>
+    // <pageButtons />
   );
 }
 

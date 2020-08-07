@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "./sprout.png";
 import "./App.css";
-import getTokenId from "./Navigation";
-import GoogleLogin from "react-google-login";
 
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
@@ -72,18 +70,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
         <img src={icon} alt="logo" />
         <div className="row">
           <div className="col-3">
-            <button
-              onClick={
-                handleFavs
-                //   () => {
-                //   setIsFavorited(!isFavorited);
-                //   localStorage.setItem(
-                //     `Sprout_favorited_${scientificName}`,
-                //     String(!isFavorited)
-                //   );
-                // }
-              }
-            >
+            <button onClick={handleFavs}>
               I'm {isFavorited ? "favorited" : "not favorited"}!
             </button>
           </div>
@@ -128,30 +115,15 @@ function loggedFav(token_id, scientificName, id) {
 }
 
 function loggedUnfav(token_id, id) {
-  return (
-    fetch("http://localhost:3000/unfav", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ token_id, id }),
-    })
-      // .then((res) => {
-      //   debugger;
-      //   return res.json();
-      // })
-      // .then((res) => {
-      //   debugger;
-      //   // console.log("Response: " + res);
-      //   // const ids = res.toString();
-      //   // console.log("Ids: " + ids);
-      //   console.log("URL: " + proxyUrl + url + res);
-      //   return proxyUrl + url + res;
-      // })
-      .catch((error) => {
-        console.log("Request failed", error);
-      })
-  );
+  return fetch("http://localhost:3000/unfav", {
+    headers: {
+      "Content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ token_id, id }),
+  }).catch((error) => {
+    console.log("Request failed", error);
+  });
 }
 
 export default Panel;

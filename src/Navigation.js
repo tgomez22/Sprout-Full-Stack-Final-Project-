@@ -12,39 +12,14 @@ import Weather from "./Weather";
 import AboutUs from "./About";
 import App from "./App";
 import GoogleButton from "./googleButton";
+import Nursery from "./Nursery";
+import PageButtons from "./pageButtons";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
 export function Navigation() {
   const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
-
-  // function init() {
-  //   setIsGoogleLoaded(true);
-  //   const id_token = window.gapi.auth2
-  //     .getAuthInstance()
-  //     .currentUser.get()
-  //     .getAuthResponse().id_token;
-  //   fetch("http://localhost:3000/verify", {
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //     method: "POST",
-  //     body: JSON.stringify({ id_token }),
-  //   })
-  //     .then((res) => {
-  //       return res.text();
-  //     })
-  //     .then((res) => {
-  //       debugger;
-  //       console.log("Signed in as:" + res);
-  //       dbLogin(res);
-  //       return res;
-  //     })
-  //     .catch((error) => {
-  //       console.log("Request failed", error);
-  //     });
-  // }
 
   return (
     <Router>
@@ -78,26 +53,15 @@ export function Navigation() {
         </Navbar.Collapse>
       </Navbar>
       <Route path="/" exact component={LandingPage} />
+      <Route path="/garden" component={Nursery} />
       {/* <Route path="/garden" component={Weather} /> */}
-      <Route
+      {/* <Route
         path="/garden"
         component={(props) => (
           <App {...props} isGoogleLoaded={isGoogleLoaded} />
         )}
-      />
+      /> */}
       <Route path="/about" component={AboutUs} />
     </Router>
   );
 }
-
-// function dbLogin(id_token) {
-//   fetch("http://localhost:3000/login", {
-//     headers: {
-//       "Content-type": "application/json",
-//     },
-//     method: "POST",
-//     body: JSON.stringify({ id_token }),
-//   }).catch((error) => {
-//     console.log("Request failed", error);
-//   });
-// }
