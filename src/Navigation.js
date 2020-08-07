@@ -11,44 +11,40 @@ import LandingPage from "./landing";
 import Weather from "./Weather";
 import AboutUs from "./About";
 import App from "./App";
-import GoogleLogin from "react-google-login";
+import GoogleButton from "./googleButton";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-//testing method. delete upon deployment.
-const responseGoogle = (response) => {
-  console.log(response);
-};
 
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
 export function Navigation() {
   const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
 
-  function init() {
-    setIsGoogleLoaded(true);
-    const id_token = window.gapi.auth2
-      .getAuthInstance()
-      .currentUser.get()
-      .getAuthResponse().id_token;
-    fetch("http://localhost:3000/verify", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ id_token }),
-    })
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => {
-        debugger;
-        console.log("Signed in as:" + res);
-        dbLogin(res);
-        return res;
-      })
-      .catch((error) => {
-        console.log("Request failed", error);
-      });
-  }
+  // function init() {
+  //   setIsGoogleLoaded(true);
+  //   const id_token = window.gapi.auth2
+  //     .getAuthInstance()
+  //     .currentUser.get()
+  //     .getAuthResponse().id_token;
+  //   fetch("http://localhost:3000/verify", {
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     method: "POST",
+  //     body: JSON.stringify({ id_token }),
+  //   })
+  //     .then((res) => {
+  //       return res.text();
+  //     })
+  //     .then((res) => {
+  //       debugger;
+  //       console.log("Signed in as:" + res);
+  //       dbLogin(res);
+  //       return res;
+  //     })
+  //     .catch((error) => {
+  //       console.log("Request failed", error);
+  //     });
+  // }
 
   return (
     <Router>
@@ -59,13 +55,9 @@ export function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar" />
         <Navbar.Collapse id="basic-navbar">
           <Nav className="ml-auto">
-            <GoogleLogin
-              clientId={CLIENT_ID}
-              buttonText="Login"
-              onSuccess={init}
-              isSignedIn={true}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
+            <GoogleButton
+              isGoogleLoaded={isGoogleLoaded}
+              setIsGoogleLoaded={setIsGoogleLoaded}
             />
             <Nav.Link>Nursery</Nav.Link>
             <Nav.Link>
@@ -98,14 +90,14 @@ export function Navigation() {
   );
 }
 
-function dbLogin(id_token) {
-  fetch("http://localhost:3000/login", {
-    headers: {
-      "Content-type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({ id_token }),
-  }).catch((error) => {
-    console.log("Request failed", error);
-  });
-}
+// function dbLogin(id_token) {
+//   fetch("http://localhost:3000/login", {
+//     headers: {
+//       "Content-type": "application/json",
+//     },
+//     method: "POST",
+//     body: JSON.stringify({ id_token }),
+//   }).catch((error) => {
+//     console.log("Request failed", error);
+//   });
+// }
