@@ -11,7 +11,8 @@ import "./landing.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import sprout from "./sprout.png";
 import { Container } from "react-bootstrap";
-import { FormControl, Button } from "react-bootstrap";
+
+import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 //Landing page component. First time users will be routed to this page first when using Sprout.
@@ -51,6 +52,8 @@ export default class LandingPage extends React.Component {
         localStorage.setItem("zip", location[0].toString());
         localStorage.setItem("latitude", location[1].toString());
         localStorage.setItem("longitude", location[2].toString());
+
+        return;
       }
     } else {
       window.alert("Geolocation is not supported. Please enter your zip code.");
@@ -63,15 +66,17 @@ export default class LandingPage extends React.Component {
     "useMyZip" method. If the location data is successfully retrieved, then it will be loaded
     into the component's state and local storage.*/
   handleUserZip = async () => {
-    let value = document.getElementById("input").value;
+    let value = document.getElementById("input").value.toString();
+    console.log(value);
     if (value.length !== 5) {
       return console.log("Please enter a valid zip code.");
     }
     if (value.length === 5) {
       let test = value.toString();
       let result = test.match(/(\d{5})/);
-      if (result === null) {
+      if (result === undefined) {
         window.alert("Please enter a valid zip code");
+        return;
       } else {
         let location = await useMyZip(value);
         if (location === undefined) {
@@ -100,7 +105,9 @@ export default class LandingPage extends React.Component {
     } else {
       return (
         <Container className="my-auto col-12">
-          <Container className="align-self-center d-flex justify-content-center col-4 d-flex flex-column">
+
+          <Container className="align-self-center d-flex justify-content-center col-lg-4 col-md-6 col-sm-10 d-flex flex-column">
+
             <Row>
               <h1 className="justify-text-center">Welcome to Sprout!</h1>
             </Row>
@@ -121,27 +128,30 @@ export default class LandingPage extends React.Component {
                 </Button>
               </Col>
             </Row>
-            <Form.Row>
-              <Col className="col-12">
-                <Form.Control
-                  className="col-8 mr-sm-2 d-inline-block"
-                  type="text"
-                  placeholder="Enter a zipcode"
-                  aria-label="Enter a zipcode"
-                  name="userZip"
-                  id="input"
-                />
-                <Button
-                  className="btn-outline-success d-inline-block"
-                  type="submit"
-                  id="zip"
-                  onClick={this.handleUserZip}
-                >
-                  Search
-                </Button>
-              </Col>
-            </Form.Row>
-            {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
+
+            <Form>
+              <Form.Row>
+                <Col className="col-8">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter a zipcode"
+                    aria-label="Enter a zipcode"
+                    name="userZip"
+                    id="input"
+                  />
+                </Col>
+                <Col className="col-4">
+                  <Button
+                    className="btn-outline-success"
+                    type="submit"
+                    id="zip"
+                    onClick={this.handleUserZip}
+                  >
+                    Search
+                  </Button>
+                </Col>
+              </Form.Row>
+            </Form>
           </Container>
         </Container>
       );

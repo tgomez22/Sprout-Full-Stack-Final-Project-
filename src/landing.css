@@ -1,26 +1,23 @@
-body{
-   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+body {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 20px;
   color: #000;
-  min-height:100vh;
-  background-color: #566E3D;
-  padding-top:70px;
+  min-height: 100vh;
+  background-color: #566e3d;
+  padding-top: 70px;
   /*tan: B9A44C*/
 }
 
-.card{
-    background-color: #566E3D;
-    border:none;
+.container {
+  height: 100vh;
+  min-height: 80vh;
+  background-color: #566e3d;
 }
 
-.container{
-    height:100vh;
-    background-color: #566E3D;
-}
-
-h1{
-    font-size: 1rem;
-    font-family:"verdana";
+h1 {
+  font-size: 22px;
+  color: #e8e8e8;
+  font-family: "verdana";
 }
 /*
     ideas for colors to use:
@@ -34,72 +31,83 @@ h1{
     F77F00
 */
 
-
-form.card{
-    min-height:100%;
-    border:none;
-    background-color: #566E3D;
-    /**/
+form.card {
+  min-height: 100%;
+  border: none;
+  background-color: #566e3d;
+  /**/
 }
 
-.btn-primary{
-    padding:10px;
-    background-color: #B9A44C;
-    color:black;
-    border-color:#B9A44C;
-    margin-bottom:5px;
+.btn-primary {
+  padding: 10px;
+  background-color: #b9a44c;
+  color: black;
+  border-color: #b9a44c;
+  margin-bottom: 5px;
 }
 
-.btn-primary:hover{
-    background-color:#9FC2CC;
-    border-color:#9FC2CC;
-    color:black;
+.btn-primary:hover {
+  background-color: #9fc2cc;
+  border-color: #9fc2cc;
+  color: black;
 }
 
-.btn-secondary{
-    padding:10px;
-    background-color:#B9A44C;
-    color:black;
-    border-color:#B9A44C;
+.btn-secondary {
+  padding: 10px;
+  background-color: #b9a44c;
+  color: black;
+  border-color: #b9a44c;
 }
 
-.btn-secondary:hover{
-    background-color:#9FC2CC;
-    border-color:#9FC2CC;
-    color:black;
+.btn-secondary:hover {
+  background-color: #9fc2cc;
+  border-color: #9fc2cc;
+  color: black;
 }
 
-.btn-outline-success{
-    border-color:black;
-    color:black;
+.btn-outline-success {
+  border-color: black;
+  color: black;
 }
 
-button#zip{
-    flex: 1 1 auto;
-    width:30%;
+button#zip {
+  flex: 1 1 auto;
+  width: 30%;
+  border: none;
 }
 
-button#zip:hover{
-    border-color: #9FC2CC;
-    background-color: #9FC2CC;
-    color:black;
+button#zip:hover {
+  border-color: #9fc2cc;
+  background-color: #9fc2cc;
+  color: black;
 }
 
-.form-group-row{
-    padding-top: 5px;
-    padding-bottom: 5px;
+div.form-row {
+  width: 100%;
 }
 
-.col-8{
-    flex: 0 1 auto;
-    margin-right:0px;
+.form-group-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
+.col {
+  flex: 1 1 auto;
+}
 
+button#zip {
+  width: 100%;
+  height: 100%;
+}
 
+img#pic {
+  max-width: 350px;
+  max-height: 350px;
+  height: 350px;
+  width: 350px;
+  flex: 0 1 auto;
+}
 
-@media(max-width:500px){
-    .col-4{
-        margin-left:0px;
-    }
+input#input {
+  height: 100%;
 }

@@ -41,6 +41,21 @@ function App({ isGoogleLoaded }) {
             <PageButtons setFinalUrl={setFinalUrl} />
             {/* <PanelDriver url={finalURL} /> */}
             {/* <PanelDriver url={proxyUrl + url} /> */}
+
+/*
+  let userSearch = window.localStorage.getItem("userQuery");
+  if (
+    userSearch === null ||
+    userSearch.length <= 5 ||
+    userSearch === undefined
+  ) {
+    return (
+      <div className="App">
+        <div className="container-fluid">
+          <div className="row">
+            {<PanelDriver url={proxyUrl + url} />}
+ */
+
             {/* <PlantPage url={proxyUrl + url} /> */}
           </div>
         </div>
@@ -50,6 +65,27 @@ function App({ isGoogleLoaded }) {
     <h1>Loading...</h1>
     // <pageButtons />
   );
+  /* 
+  );
+  } else {
+    let searchUrl =
+      `https://trefle.io/api/v1/plants/search?q=` +
+      userSearch +
+      "&token=" +
+      apiKey;
+    return (
+      <div className="App">
+        <div className="container-fluid">
+          <div className="row">
+            {<PanelDriver url={proxyUrl + searchUrl} />}
+            {/* <PlantPage url={proxyUrl + url} /> */}
+  /*        </div>
+        </div>
+      </div>
+    );
+  } 
+*/
+
 }
 
 function getFavsLogged() {

@@ -1,7 +1,38 @@
 .App {
   box-sizing: border-box;
   text-align: center;
-  border: 2px solid rgb(209, 20, 20);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+div.container-fluid {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-bottom: 30vh;
+}
+
+img.mx-auto {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.col-3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+ul#list {
+  margin-bottom: 2px;
+}
+
+button.btn-sm {
+  border-radius: 2px;
+  background-color: #566e3d;
+  color: white;
 }
 
 img {
@@ -14,12 +45,29 @@ row {
   border: 2px solid blue;
 }
 
-.App-header {
-  background-color: #282c34;
-  font-size: calc(0px + 2vmin);
+button.btn.btn-primary-success {
+  background-color: #566e3d;
   color: white;
-  border: 1px solid rgb(22, 199, 60);
+}
+
+button.btn.btn-primary-success:hover {
+  border: 2px solid black;
+  background-color: #9fc2cc;
+  color: black;
+}
+
+.App-header {
+  background-color: #b9a44c;
+  font-size: calc(0px + 2vmin);
+  color: black;
+  border: 1px solid #b9a44c;
+  border-radius: 4px;
   height: 35vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .App-link {
@@ -32,5 +80,11 @@ row {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 550px) {
+  img.mx-auto {
+    padding: 0;
   }
 }

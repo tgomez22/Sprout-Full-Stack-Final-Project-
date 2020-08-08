@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
-import "./plantPage.css";
 
-function PlantPage({ url }) {
+import "./plantPage.css";
+import { useParams } from "react-router-dom";
+const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
+
+function PlantPage() {
   const [values, setValues] = useState(null);
+  const data = useParams();
+  const proxyUrl = "http://cors-anywhere.herokuapp.com/";
+  const plantId = data.id.toString();
+  const url =
+    proxyUrl + `https://trefle.io/api/v1/species/${plantId}?&token=${apiKey}`;
 
   useEffect(() => {
     fetch(url, { headers: { Origin: "localhost" } })
       .then((response) => response.json())
       .then(({ data }) => {
-        setValues(data.main_species);
+        console.log(data);
+        setValues(data);
       })
       .catch((error) => {
         console.log("Request failed", error);
@@ -20,31 +28,32 @@ function PlantPage({ url }) {
     <div className="plantPage">
       <div className="row">
         <div className="col-12">
-          <div className="container">
+          <div className="container" id="dash">
             <div className="col-6">
               <ul>
-                <li>
+                <li id="links">
                   <a href="#growth">Growth</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#distribution">Distribution</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#commonName">Common Names</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#specifications">Specifications</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#flower">Flower Info</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#foliage">Foliage</a>
                 </li>
-                <li>
+                <li id="links">
                   <a href="#fruitOrSeed">Fruit or Seed Info</a>
                 </li>
               </ul>
+              <div id="links">Click the above links to see more info!</div>
             </div>
             <div className="col-6">
               <img src={values.image_url}></img>
@@ -53,48 +62,50 @@ function PlantPage({ url }) {
         </div>
       </div>
       <div className="row">
-        <div className="col-4"></div>
-        <div className="col-4">
-          <ul>
-            <li id="growth">
-              Growth
-              <ul>{mapList(values.growth)}</ul>
-            </li>
-            <br></br>
-            <br></br>
-            <li id="distribution">
-              Distribution
+        <div className="col-12">
+          <div className="container">
+            <div className="col-6" id="info">
               <ul>
-                {values.distribution.native.map((key) => {
-                  return <li>{key}</li>;
-                })}
+                <li id="growth">
+                  Growth
+                  <ul>{mapList(values.growth)}</ul>
+                </li>
+                <br></br>
+                <br></br>
+                <li id="distribution">
+                  Distribution
+                  <ul>
+                    {values.distribution.native.map((key) => {
+                      return <li>{key}</li>;
+                    })}
+                  </ul>
+                </li>
+                <li id="commonName">
+                  Common names
+                  <ul>
+                    <li>{values.common_name}</li>
+                  </ul>
+                </li>
+                <li id="specifications">
+                  Specifications
+                  <ul>{mapList(values.specifications)}</ul>
+                </li>
+                <li id="flower">
+                  Flower Info
+                  <ul>{mapList(values.flower)}</ul>
+                </li>
+                <li id="foliage">
+                  Foliage
+                  <ul>{mapList(values.foliage)}</ul>
+                </li>
+                <li id="fruitOrSeed">
+                  Fruit/Seed Info
+                  <ul>{mapList(values.fruit_or_seed)}</ul>
+                </li>
               </ul>
-            </li>
-            <li id="commonName">
-              Common names
-              <ul>
-                <li>{values.common_name}</li>
-              </ul>
-            </li>
-            <li id="specifications">
-              Specifications
-              <ul>{mapList(values.specifications)}</ul>
-            </li>
-            <li id="flower">
-              Flower Info
-              <ul>{mapList(values.flower)}</ul>
-            </li>
-            <li id="foliage">
-              Foliage
-              <ul>{mapList(values.foliage)}</ul>
-            </li>
-            <li id="fruitOrSeed">
-              Fruit/Seed Info
-              <ul>{mapList(values.fruit_or_seed)}</ul>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
-        <div className="col-4"></div>
       </div>
     </div>
   ) : (

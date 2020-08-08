@@ -8,3 +8,66 @@ plantPage > img {
   display: flex;
   flex-direction: row;
 }
+
+.container#dash {
+  background-color: #b9a44c;
+  border-radius: 10px;
+}
+
+.col-6#info {
+  background-color: #566e3d;
+  border-radius: 4px;
+}
+
+.col-4 {
+  background-color: #b9a44c;
+  border-radius: 4px;
+}
+
+.plantPage {
+  background-color: #566e3d;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.col-6 > li {
+  padding: 10px;
+}
+
+li#links {
+  padding: 10px;
+}
+
+div#links {
+  padding: 10px;
+}
+
+li#growth {
+  padding: 10px;
+}
+
+li#distribution {
+  padding: 20px;
+}
+
+li#commonName {
+  padding: 20px;
+}
+
+li#specifications {
+  padding: 20px;
+}
+
+li#flower {
+  padding: 20px;
+}
+
+li#foliage {
+  padding: 20px;
+}
+
+li#fruitOrSeed {
+  padding: 20px;
+}

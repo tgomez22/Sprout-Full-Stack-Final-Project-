@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import logo from "./sprout.png";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navigation from "./Navigation";
+import PlantPage from "./plantPage";
+import { Router, Route, Redirect, BrowserRouter, Link } from "react-router-dom";
+import { render } from "@testing-library/react";
+/*https://trefle.io/api/v1/plants/{id}?token=*/
 
+const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
   const [isFavorited, setIsFavorited] = useState(false);
   const icon = previewImage ? previewImage : logo;
+  const redirectUrl =
+    "https://trefle.io/api/v1/plants/$" + id + "?" + "token=" + apiKey;
+  //console.log(redirectUrl);
 
   useEffect(() => {
     checkIfFaved(googleUser.googleId, id)
@@ -65,9 +75,9 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   }
 
   return (
-    <div className="col-3">
+    <div className="col-lg-3 col-md-4 col-sm-6">
       <header className="App-header">
-        <img src={icon} alt="logo" />
+        <img className="mx-auto" src={icon} alt="logo" id="plant" />
         <div className="row">
           <div className="col-3">
             <button onClick={handleFavs}>
@@ -75,11 +85,12 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
             </button>
           </div>
           <div className="col-9">
-            <ul>
+            <ul id="list">
               <li>Scientific name: {scientificName}</li>
               <li>Genus: {genusName}</li>
               <li>Family: {familyName}</li>
             </ul>
+            <Link to={`/plant/${id}`}>See me!</Link>
           </div>
         </div>
       </header>
@@ -125,5 +136,6 @@ function loggedUnfav(token_id, id) {
     console.log("Request failed", error);
   });
 }
+
 
 export default Panel;
