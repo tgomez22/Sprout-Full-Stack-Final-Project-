@@ -3,6 +3,19 @@
   text-align: center;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+div.container-fluid {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-bottom: 30vh;
+}
+
 img.mx-auto {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -67,5 +80,11 @@ button.btn.btn-primary-success:hover {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 550px) {
+  img.mx-auto {
+    padding: 0;
   }
 }

@@ -1,9 +1,15 @@
+import testData from "./testData.json";
 import React from "react";
 import { Component } from "react";
 import { Card } from "react-bootstrap";
 import "./Weather.css";
 import { Redirect } from "react-router-dom";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+console.log(testData);
+let data = testData;
+window.localStorage.setItem("zip", data.set1.zip);
+window.localStorage.setItem("latitude", data.set1.lat);
+window.localStorage.setItem("longitude", data.set1.lng);
 
 /*This component renders a 5 day weather forecast which is stuck to the bottom of the user's
 screen. It uses the local storage location data to make an api call to get the weather forecast

@@ -2,10 +2,11 @@ import React from "react";
 import question_mark from "./question_mark.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./About.css";
-
+import { Link } from "react-router-dom";
 //returns an "About Us" page to be rendered. This page contains no links or reroutes.
 //Navigation is handled by the Navbar components.
 function AboutUs() {
+  const id = "12345";
   return (
     <div className="row d-flex align-content-center my-auto">
       <div className="col-5 d-flex">
