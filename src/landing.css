@@ -73,6 +73,7 @@ form.card {
 button#zip {
   flex: 1 1 auto;
   width: 30%;
+  border: none;
 }
 
 button#zip:hover {

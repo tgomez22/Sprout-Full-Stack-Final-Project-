@@ -14,12 +14,13 @@ p.card-text {
 }
 
 div#box {
-  flex: 1 1 auto;
+  flex: 0 0 30vh;
   max-width: 100%;
   width: 100%;
   max-height: 30vh;
   margin-right: 0;
   margin-left: 0;
+  margin-top: auto;
 }
 
 div#panel {
@@ -47,10 +48,18 @@ p {
 }
 
 .card-img {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   align-self: center;
-  max-height: 100px;
-  max-width: 100px;
+  max-height: 50px;
+  max-width: 50px;
+}
+
+img#weatherIcon.card-img {
+  flex: 0 1 auto;
+  max-width: 50px;
+  max-height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 @media (max-width: 700px) {

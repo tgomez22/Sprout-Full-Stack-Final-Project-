@@ -16,6 +16,7 @@ import App from "./App";
 import { Redirect } from "react-router-dom";
 import { render } from "@testing-library/react";
 import { Component } from "react";
+import PlantPage from "./plantPage";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 //testing method. delete upon deployment.
 const responseGoogle = (response) => {
@@ -31,17 +32,17 @@ export default class Navigation extends Component {
       shouldRedirect: false,
     };
   }
+
   handleSearch = (event) => {
-    window.localStorage.removeItem("searchField");
-    let userSearch = document.getElementById("searchField").value;
-    window.localStorage.setItem("userQuery", userSearch);
-    if (event.key === "Enter") {
+    if (event.type === "submit") {
       this.setState({
         shouldRedirect: true,
       });
-
-      return;
     }
+
+    window.localStorage.removeItem("searchField");
+    let userSearch = document.getElementById("searchField").value;
+    window.localStorage.setItem("userQuery", userSearch);
   };
 
   render() {
@@ -80,7 +81,7 @@ export default class Navigation extends Component {
                   <Link to="/about">About Us</Link>
                 </Nav.Link>
               </Nav>
-              <Form inline>
+              <Form inline onSubmit={this.handleSearch}>
                 <label for="searchField" id="label">
                   Enter in the field the plant you are looking for.
                 </label>
@@ -107,9 +108,17 @@ export default class Navigation extends Component {
             </Navbar.Collapse>
           </Navbar>
           <Route path="/" exact component={LandingPage} />
-          <Route path="/garden" component={Weather} />
+          <Route path="/garden">
+            <div className="body">
+              <App />
+            </div>
+            <div className="footer">
+              <Weather />
+            </div>
+          </Route>
           <Route path="/about" component={AboutUs} />
           <Route path="/nursery" component={App} />
+          <Route path="/plant/:id" component={PlantPage} />
         </Router>
       );
     }
