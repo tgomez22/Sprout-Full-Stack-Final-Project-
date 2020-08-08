@@ -1,5 +1,5 @@
 import React from "react";
-import question_mark from "./question_mark.jpg";
+import question_mark from "./sprout.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./About.css";
 import { Link } from "react-router-dom";
