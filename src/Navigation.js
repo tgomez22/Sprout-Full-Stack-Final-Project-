@@ -37,7 +37,7 @@ export function Navigation() {
   // };
 
   function handleSearch() {
-    setShouldRedirect(true);
+    // setShouldRedirect(true);
 
     window.localStorage.removeItem("searchField");
     let userSearch = document.getElementById("searchField").value;
@@ -72,7 +72,7 @@ export function Navigation() {
               <Link to="/about">About Us</Link>
             </Nav.Link>
           </Nav>
-          <Form inline onSubmit={() => handleSearch()}>
+          <Form inline onSubmit={() => shouldRedirect(true)}>
             <label for="searchField" id="label">
               Enter in the field the plant you are looking for.
             </label>
