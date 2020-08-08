@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormControl from "react-bootstrap/FormControl";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navigation.css";
@@ -10,34 +10,26 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import LandingPage from "./landing";
 import Weather from "./Weather";
 import AboutUs from "./About";
-import GoogleLogin from "react-google-login";
-import PanelDriver from "./PanelDriver";
 import App from "./App";
+import GoogleButton from "./googleButton";
+import Nursery from "./Nursery";
+import PageButtons from "./pageButtons";
 import { Redirect } from "react-router-dom";
 import { render } from "@testing-library/react";
 import { Component } from "react";
 import PlantPage from "./plantPage";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-//testing method. delete upon deployment.
-const responseGoogle = (response) => {
-  console.log(response);
-};
 
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
-export default class Navigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      shouldRedirect: false,
-    };
-  }
-
-  handleSearch = (event) => {
+export function Navigation() {
+  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  
+    handleSearch = (event) => {
     if (event.type === "submit") {
-      this.setState({
-        shouldRedirect: true,
-      });
+      setShouldRedirect(true);
+      };
     }
 
     window.localStorage.removeItem("searchField");
@@ -45,43 +37,34 @@ export default class Navigation extends Component {
     window.localStorage.setItem("userQuery", userSearch);
   };
 
-  render() {
-    if (this.state.shouldRedirect === true) {
-      return (
-        <Router>
+  return shouldRedirect? (
+    <Router>
           <Route path="/nursery" component={(App, Navigation)} />
           <Redirect to="/nursery" />
         </Router>
-      );
-    } else {
-      return (
-        <Router>
-          <Navbar expand="lg" fixed="top">
-            <Navbar.Brand>
-              <Link to="/garden">Sprout</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar" />
-            <Navbar.Collapse id="basic-navbar">
-              <Nav className="ml-auto">
-                <GoogleLogin
-                  id="GoogleLogin"
-                  clientId={CLIENT_ID}
-                  buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={"single_host_origin"}
-                />
-                <Nav.Link>
-                  <Link to="/nursery">Nursery</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/garden">My Garden</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/about">About Us</Link>
-                </Nav.Link>
-              </Nav>
-              <Form inline onSubmit={this.handleSearch}>
+    )
+    :(
+    <Router>
+      <Navbar expand="lg" fixed="top">
+        <Navbar.Brand>
+          <Link to="/garden">Sprout</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar" />
+        <Navbar.Collapse id="basic-navbar">
+          <Nav className="ml-auto">
+            <GoogleButton
+              isGoogleLoaded={isGoogleLoaded}
+              setIsGoogleLoaded={setIsGoogleLoaded}
+            />
+            <Nav.Link>Nursery</Nav.Link>
+            <Nav.Link>
+              <Link to="/garden">My Garden</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/about">About Us</Link>
+            </Nav.Link>
+          </Nav>
+          <Form inline onSubmit={this.handleSearch}>
                 <label for="searchField" id="label">
                   Enter in the field the plant you are looking for.
                 </label>
@@ -95,32 +78,34 @@ export default class Navigation extends Component {
                 <Button
                   variant="outline-success"
                   onClick={
-                    (this.handleSearch,
+                   /* (this.handleSearch,
                     () =>
                       this.setState({
                         shouldRedirect: true,
                       }))
+                 */
+                  () => setShouldDirert(true)
                   }
                 >
                   Search
                 </Button>
               </Form>
-            </Navbar.Collapse>
-          </Navbar>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/garden">
+        </Navbar.Collapse>
+      </Navbar>
+      <Route path="/" exact component={LandingPage} />
+          <Route path="/garden" component={(props) => (
             <div className="body">
-              <App />
+              <App {...props} isGoogleLoaded={isGoogleLoaded}/>
             </div>
             <div className="footer">
               <Weather />
             </div>
+            )}>
           </Route>
-          <Route path="/about" component={AboutUs} />
-          <Route path="/nursery" component={App} />
-          <Route path="/plant/:id" component={PlantPage} />
-        </Router>
-      );
-    }
-  }
+
+      <Route path="/nursery" component={Nursery} />
+      <Route path="/about" component={AboutUs} />
+      <Route path="/plant/:id" component={PlantPage} />
+    </Router>
+  );
 }

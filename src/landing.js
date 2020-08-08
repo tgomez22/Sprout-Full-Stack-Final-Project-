@@ -11,6 +11,7 @@ import "./landing.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import sprout from "./sprout.png";
 import { Container } from "react-bootstrap";
+
 import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -51,6 +52,7 @@ export default class LandingPage extends React.Component {
         localStorage.setItem("zip", location[0].toString());
         localStorage.setItem("latitude", location[1].toString());
         localStorage.setItem("longitude", location[2].toString());
+
         return;
       }
     } else {
@@ -103,7 +105,9 @@ export default class LandingPage extends React.Component {
     } else {
       return (
         <Container className="my-auto col-12">
+
           <Container className="align-self-center d-flex justify-content-center col-lg-4 col-md-6 col-sm-10 d-flex flex-column">
+
             <Row>
               <h1 className="justify-text-center">Welcome to Sprout!</h1>
             </Row>
@@ -124,6 +128,7 @@ export default class LandingPage extends React.Component {
                 </Button>
               </Col>
             </Row>
+
             <Form>
               <Form.Row>
                 <Col className="col-8">

@@ -29,8 +29,8 @@ function AboutUs() {
         />
         <h2>Haley Siebert</h2>
         <div className="blurb">
-          This is placeholder text because something about a few hundred,
-          question marks in a row made this page break!
+          Post-Bac Computer Science Student at Portland State Univeristy, lover
+          of plants.
         </div>
       </div>
     </div>
