@@ -5,7 +5,7 @@ import PageButtons from "./pageButtons";
 
 const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 
-const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes only
+const proxyUrl = "https://cors-anywhere.herokuapp.com/"; //for testing purposes only
 const url = `https://trefle.io/api/v1/species/search?limit=8&token=${apiKey}&page=`;
 
 function Nursery() {
