@@ -9,7 +9,6 @@ const url = `https://trefle.io/api/v1/species/search?q=basil&limit=8&token=${api
 function PageButtons({ currPage, setCurrPage }) {
   return (
     <Pagination>
-      {/* <Pagination.First> </Pagination.First> */}
       <Pagination.Prev
         onClick={() => (currPage > 1 ? setCurrPage(currPage - 1) : null)}
       ></Pagination.Prev>
@@ -17,7 +16,6 @@ function PageButtons({ currPage, setCurrPage }) {
       <Pagination.Next
         onClick={() => setCurrPage(currPage + 1)}
       ></Pagination.Next>
-      {/* <Pagination.Last></Pagination.Last> */}
     </Pagination>
   );
 }
