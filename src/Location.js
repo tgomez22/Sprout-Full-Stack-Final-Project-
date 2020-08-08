@@ -1,8 +1,6 @@
 import React from "react";
-import { Component } from "react";
 import { Redirect } from "react-router-dom";
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-const proxyUrl = "http://cors-anywhere.herokuapp.com/";
 //use if supplied lat/long
 export let getZip = async (latitude, longitude) => {
   fetch(

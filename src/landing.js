@@ -4,16 +4,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useCoordinates, useMyZip } from "./Location";
-import { render } from "@testing-library/react";
 import { Redirect } from "react-router-dom";
-import Weather from "./Weather";
 import "./landing.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import sprout from "./sprout.png";
 import { Container } from "react-bootstrap";
-
 import { Button } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 //Landing page component. First time users will be routed to this page first when using Sprout.
 export default class LandingPage extends React.Component {
@@ -105,9 +101,7 @@ export default class LandingPage extends React.Component {
     } else {
       return (
         <Container className="my-auto col-12">
-
           <Container className="align-self-center d-flex justify-content-center col-lg-4 col-md-6 col-sm-10 d-flex flex-column">
-
             <Row>
               <h1 className="justify-text-center">Welcome to Sprout!</h1>
             </Row>
