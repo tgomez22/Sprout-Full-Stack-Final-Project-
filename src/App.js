@@ -45,7 +45,7 @@ function App({ isGoogleLoaded }) {
 function getFavsLogged() {
   const id_token = window.gapi.auth2.getAuthInstance().currentUser.get()
     .googleId;
-  return fetch("http://localhost:3000/getLoggedFavs", {
+  return fetch("/getLoggedFavs", {
     headers: {
       "Content-type": "application/json",
     },

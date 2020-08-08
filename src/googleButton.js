@@ -14,7 +14,7 @@ function GoogleButton({ isGoogleLoaded, setIsGoogleLoaded }) {
       .getAuthInstance()
       .currentUser.get()
       .getAuthResponse().id_token;
-    fetch("http://localhost:3000/verify", {
+    fetch("/verify", {
       headers: {
         "Content-type": "application/json",
       },
@@ -62,7 +62,7 @@ function GoogleButton({ isGoogleLoaded, setIsGoogleLoaded }) {
 }
 
 function dbLogin(id_token) {
-  fetch("http://localhost:3000/login", {
+  fetch("/login", {
     headers: {
       "Content-type": "application/json",
     },
