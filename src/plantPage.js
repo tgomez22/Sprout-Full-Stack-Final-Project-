@@ -16,11 +16,10 @@ function PlantPage() {
     fetch(url, { headers: { Origin: "localhost" } })
       .then((response) => response.json())
       .then(({ data }) => {
-        console.log(data);
         setValues(data);
       })
       .catch((error) => {
-        console.log("Request failed", error);
+        console.error("Request failed", error);
       });
   }, [url]);
 
@@ -56,7 +55,7 @@ function PlantPage() {
               <div id="links">Click the above links to see more info!</div>
             </div>
             <div className="col-6">
-              <img src={values.image_url}></img>
+              <img src={values.image_url} alt={values.common_name}></img>
             </div>
           </div>
         </div>

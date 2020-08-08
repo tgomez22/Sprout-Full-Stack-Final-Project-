@@ -2,20 +2,12 @@ import React, { useState, useEffect } from "react";
 import logo from "./sprout.png";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navigation from "./Navigation";
-import PlantPage from "./plantPage";
-import { Router, Route, Redirect, BrowserRouter, Link } from "react-router-dom";
-import { render } from "@testing-library/react";
-/*https://trefle.io/api/v1/plants/{id}?token=*/
+import { Link } from "react-router-dom";
 
-const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
   const [isFavorited, setIsFavorited] = useState(false);
   const icon = previewImage ? previewImage : logo;
-  const redirectUrl =
-    "https://trefle.io/api/v1/plants/$" + id + "?" + "token=" + apiKey;
-  //console.log(redirectUrl);
 
   useEffect(() => {
     checkIfFaved(googleUser.googleId, id)
@@ -99,30 +91,15 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
 }
 
 function loggedFav(token_id, scientificName, id) {
-  return (
-    fetch("http://localhost:3000/fav", {
-      headers: {
-        "Content-type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ token_id, scientificName, id }),
-    })
-      // .then((res) => {
-      //   debugger;
-      //   return res.json();
-      // })
-      // .then((res) => {
-      //   debugger;
-      //   // console.log("Response: " + res);
-      //   // const ids = res.toString();
-      //   // console.log("Ids: " + ids);
-      //   console.log("URL: " + proxyUrl + url + res);
-      //   return proxyUrl + url + res;
-      // })
-      .catch((error) => {
-        console.log("Request failed", error);
-      })
-  );
+  return fetch("http://localhost:3000/fav", {
+    headers: {
+      "Content-type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ token_id, scientificName, id }),
+  }).catch((error) => {
+    console.log("Request failed", error);
+  });
 }
 
 function loggedUnfav(token_id, id) {
@@ -136,6 +113,5 @@ function loggedUnfav(token_id, id) {
     console.log("Request failed", error);
   });
 }
-
 
 export default Panel;

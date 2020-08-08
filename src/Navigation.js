@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import FormControl from "react-bootstrap/FormControl";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navigation.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -13,12 +12,8 @@ import AboutUs from "./About";
 import App from "./App";
 import GoogleButton from "./googleButton";
 import Nursery from "./Nursery";
-import PageButtons from "./pageButtons";
 import { Redirect } from "react-router-dom";
-import { render } from "@testing-library/react";
-import { Component } from "react";
 import PlantPage from "./plantPage";
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 //This method is the navbar for the website. It is the only way to navigate between pages
 //in Sprout.
@@ -26,19 +21,7 @@ export function Navigation() {
   const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
-  // handleSearch = (event) => {
-  //   if (event.type === "submit") {
-  //     setShouldRedirect(true);
-  //   }
-
-  //   window.localStorage.removeItem("searchField");
-  //   let userSearch = document.getElementById("searchField").value;
-  //   window.localStorage.setItem("userQuery", userSearch);
-  // };
-
   function handleSearch() {
-    // setShouldRedirect(true);
-
     window.localStorage.removeItem("searchField");
     let userSearch = document.getElementById("searchField").value;
     window.localStorage.setItem("userQuery", userSearch);
@@ -85,18 +68,10 @@ export function Navigation() {
             />
             <Button
               variant="outline-success"
-              onClick={
-                /* (this.handleSearch,
-                    () =>
-                      this.setState({
-                        shouldRedirect: true,
-                      }))
-                 */
-                () => {
-                  setShouldRedirect(true);
-                  handleSearch();
-                }
-              }
+              onClick={() => {
+                setShouldRedirect(true);
+                handleSearch();
+              }}
             >
               Search
             </Button>

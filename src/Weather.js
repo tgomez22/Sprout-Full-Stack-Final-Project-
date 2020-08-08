@@ -3,7 +3,6 @@ import React from "react";
 import { Component } from "react";
 import { Card } from "react-bootstrap";
 import "./Weather.css";
-import { Redirect } from "react-router-dom";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 console.log(testData);
 let data = testData;
