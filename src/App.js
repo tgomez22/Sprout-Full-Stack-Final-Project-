@@ -18,6 +18,7 @@ function App({ isGoogleLoaded }) {
       : setFinalUrl(getFavsLocal());
   }, [isGoogleLoaded]);
 
+  console.log(finalURL);
   return finalURL ? (
     finalURL === proxyUrl + url ? (
       <div className="App">
