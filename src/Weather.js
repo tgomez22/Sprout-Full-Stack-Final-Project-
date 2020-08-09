@@ -5,7 +5,7 @@ import { Card } from "react-bootstrap";
 import "./Weather.css";
 import { Redirect } from "react-router-dom";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-console.log(testData);
+
 let data = testData;
 window.localStorage.setItem("zip", data.set1.zip);
 window.localStorage.setItem("latitude", data.set1.lat);
