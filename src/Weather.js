@@ -300,7 +300,7 @@ export default class Weather extends Component {
   /*This method fetches weather data from the openweathermap api if location data exists in local storage. */
   getWeatherForecast = () => {
     fetch(
-      "http://api.openweathermap.org/data/2.5/onecall?lat=" +
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
         localStorage.getItem("latitude") +
         "&lon=" +
         localStorage.getItem("longitude") +
