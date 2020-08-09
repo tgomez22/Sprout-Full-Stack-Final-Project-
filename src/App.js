@@ -18,8 +18,10 @@ function App({ isGoogleLoaded }) {
       : setFinalUrl(getFavsLocal());
   }, [isGoogleLoaded]);
 
+  console.log("Final url:", finalURL);
   return finalURL ? (
-    finalURL === `${proxyUrl}${url}null` ? (
+    finalURL === proxyUrl + url ? (
+      // finalURL === `${proxyUrl}${url}null` ? (
       <div className="App">
         <div className="container-fluid">
           <div className="row">
@@ -56,7 +58,8 @@ function getFavsLogged() {
       return res.json();
     })
     .then((res) => {
-      return proxyUrl + url + res;
+      if (res) return proxyUrl + url + res;
+      return proxyUrl + url;
     })
     .catch((error) => {
       console.error("Request failed", error);

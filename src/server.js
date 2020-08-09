@@ -134,7 +134,7 @@ app.post("/getLoggedFavs", function (req, res) {
           )
         );
       } else {
-        res.write(JSON.stringify("null"));
+        res.write(JSON.stringify(null));
       }
       res.end();
     })
