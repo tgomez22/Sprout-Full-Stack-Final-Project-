@@ -1,3 +1,22 @@
+We used many different online guides & tutorials over the course of this project. Here is a list of links to them!
+https://reactjs.org/dochttps://www.tutorialspoint.com/reactjs/reactjs_router.htms/create-a-new-react-app.html
+http://www.passportjs.org/docs/
+https://www.w3schools.com/nodejs/nodejs_mysql_create_db.asp
+https://developers.google.com/identity/sign-in/web/backend-auth#calling-the-tokeninfo-endpoint
+https://developers.google.com/identity/sign-in/web
+https://node-postgres.com/features/queries
+https://reactjs.org/docs/hooks-intro.html
+https://codeforgeek.com/handle-get-post-request-express-4/
+https://devcenter.heroku.com/articles/deploying-nodejs
+https://node-postgres.com/
+https://www.freecodecamp.org/news/a-complete-beginners-guide-to-react-router-include-router-hooks/
+https://www.tutorialspoint.com/reactjs/reactjs_router.htm
+https://react-bootstrap.github.io/components/navbar/
+https://react-bootstrap.github.io/components/forms/
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
