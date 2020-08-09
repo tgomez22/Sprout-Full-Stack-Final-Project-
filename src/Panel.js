@@ -69,7 +69,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   return (
     <div className="col-lg-3 col-md-4 col-sm-6">
       <header className="App-header">
-        <img className="mx-auto" src={icon} alt="logo" id="plant" />
+        <img className="mx-auto d-flex" src={icon} alt="logo" id="plant" />
         <div className="row">
           <div className="col-3">
             <button onClick={handleFavs}>
