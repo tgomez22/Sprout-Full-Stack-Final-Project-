@@ -41,7 +41,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
   function checkIfFaved(token_id, id) {
     const googleUser = window.gapi.auth2.getAuthInstance().currentUser.get();
     if (googleUser.isSignedIn()) {
-      return fetch("http://localhost:3000/checkIfFaved", {
+      return fetch("/checkIfFaved", {
         headers: {
           "Content-type": "application/json",
         },
@@ -91,7 +91,7 @@ function Panel({ scientificName, previewImage, familyName, genusName, id }) {
 }
 
 function loggedFav(token_id, scientificName, id) {
-  return fetch("http://localhost:3000/fav", {
+  return fetch("/fav", {
     headers: {
       "Content-type": "application/json",
     },
@@ -103,7 +103,7 @@ function loggedFav(token_id, scientificName, id) {
 }
 
 function loggedUnfav(token_id, id) {
-  return fetch("http://localhost:3000/unfav", {
+  return fetch("/unfav", {
     headers: {
       "Content-type": "application/json",
     },

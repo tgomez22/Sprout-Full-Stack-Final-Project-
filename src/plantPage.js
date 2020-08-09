@@ -7,7 +7,7 @@ const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 function PlantPage() {
   const [values, setValues] = useState(null);
   const data = useParams();
-  const proxyUrl = "http://cors-anywhere.herokuapp.com/";
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
   const plantId = data.id.toString();
   const url =
     proxyUrl + `https://trefle.io/api/v1/species/${plantId}?&token=${apiKey}`;

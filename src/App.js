@@ -4,7 +4,7 @@ import PanelDriver from "./PanelDriver";
 
 const apiKey = process.env.REACT_APP_TREFLE_API_KEY;
 
-const proxyUrl = "http://cors-anywhere.herokuapp.com/"; //for testing purposes only
+const proxyUrl = "https://cors-anywhere.herokuapp.com/"; //for testing purposes only
 const url = `https://trefle.io/api/v1/species?token=${apiKey}&filter[scientific_name]=`;
 
 function App({ isGoogleLoaded }) {
@@ -19,7 +19,7 @@ function App({ isGoogleLoaded }) {
   }, [isGoogleLoaded]);
 
   return finalURL ? (
-    finalURL === proxyUrl + url ? (
+    finalURL === `${proxyUrl}${url}null` ? (
       <div className="App">
         <div className="container-fluid">
           <div className="row">
@@ -45,7 +45,7 @@ function App({ isGoogleLoaded }) {
 function getFavsLogged() {
   const id_token = window.gapi.auth2.getAuthInstance().currentUser.get()
     .googleId;
-  return fetch("http://localhost:3000/getLoggedFavs", {
+  return fetch("/getLoggedFavs", {
     headers: {
       "Content-type": "application/json",
     },
