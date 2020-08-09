@@ -19,7 +19,7 @@ function Nursery() {
       userSearch.length <= 5 ||
       userSearch === undefined
     ) {
-      setFinalUrl(`${proxyUrl}${url}${currPage}&q=`);
+      setFinalUrl(`${proxyUrl}${url}${currPage}&q=null`);
     } else {
       setFinalUrl(
         `${proxyUrl}https://trefle.io/api/v1/plants/search?q=${userSearch}&limit=8&token=${apiKey}&page=${currPage}`
